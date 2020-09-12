@@ -111,7 +111,7 @@ const generateQuestions = () => {
             incorrect_answers: [
                 shuffled[1].substring(3),
                 shuffled[2].substring(3),
-                shuffled[3].substring(3),
+                // shuffled[3].substring(3),
             ]
         });
     }
