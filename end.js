@@ -2,8 +2,6 @@ const finalScore = document.getElementById('finalScore');
 const mostRecentScore = localStorage.getItem('mostRecentScore');
 const possibleScore = localStorage.getItem('possibleScore');
 
-finalScore.innerText = `${possibleScore}/${mostRecentScore}`;
-
 
 const celebrate = () => {
     const duration = 3 * 1000;
@@ -15,18 +13,24 @@ const celebrate = () => {
     }
     
     const interval = setInterval(function() {
-    const timeLeft = animationEnd - Date.now();
+      const timeLeft = animationEnd - Date.now();
+      
+      if (timeLeft <= 0) {
+        return clearInterval(interval);
+      }
+    
+      const particleCount = 100 * (timeLeft / duration);
 
-    if (timeLeft <= 0) {
-      return clearInterval(interval);
-    }
-
-    const particleCount = 100 * (timeLeft / duration);
-    // since particles fall down, start a bit higher than random
-    confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 } }));
+      confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 } }));
       confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } }));
     }, 250);
 }
 
+console.log(mostRecentScore);
 
-celebrate();
+if (mostRecentScore < possibleScore / 2) {
+  finalScore.innerText = '¡Sigue practicando!';
+} else {
+  finalScore.innerText = `${mostRecentScore} de ${possibleScore}`;
+  celebrate();
+}

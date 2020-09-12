@@ -61,7 +61,6 @@ const items = [
     '🍣 Sushi',
     '🍤 Shrimp',
     '🥠 Fortune Cookie',
-    '🦪 Oyster',
     '🍦 Ice Cream',
     '🍧 Shaved Ice',
     '🍨 Ice Cream',
@@ -73,6 +72,28 @@ const items = [
     '🍫 Chocolate Bar',
     '🍬 Candy',
     '🍭 Lollipop',
+    '🌡 Thermometer',
+    '⛱ Umbrella',
+    '🧨 Firecracker',
+    '🎈 Balloon',
+    '🎉 Party Popper',
+    '🐒 Monkey',
+    '🦍 Gorilla',
+    '🦧 Orangutan',
+    '🐕 Dog',
+    '🐺 Wolf',
+    '🦊 Fox',
+    '🦝 Raccoon',
+    '🐈 Cat',
+    '🦁 Lion',
+    '🦃 Turkey',
+    '🐔 Chicken',
+    '🐓 Rooster',
+    '🐣 Hatching Chick',
+    '🐊 Crocodile',
+    '🐢 Turtle',
+    '🦎 Lizard',
+    '🐍 Snake',
 ];
 
 
@@ -90,7 +111,7 @@ const generateQuestions = () => {
 
 
         questions.push({
-            question: `${emoji}${emoji}${emoji}`,
+            question: `${emoji}${emoji}${emoji}${emoji}`,
             correct_answer: word,
             incorrect_answers: [
                 shuffled[1].substring(3),
