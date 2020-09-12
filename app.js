@@ -77,7 +77,6 @@ const items = [
     '🎉 Party Popper',
     '🐒 Monkey',
     '🦍 Gorilla',
-    '🦧 Orangutan',
     '🐕 Dog',
     '🐺 Wolf',
     '🦊 Fox',
