@@ -1,0 +1,53 @@
+[
+  {
+    "question": "🌾🌾🌾",
+    "correct_answer": "Wheat",
+    "incorrect_answers": [
+      "Corn",
+      "Raice",
+      "Beans"
+    ]
+  },
+
+  {
+    "question": "🍇🍇🍇",
+    "correct_answer": "Grapes",
+    "incorrect_answers": [
+      "Corn",
+      "Raice",
+      "Beans"
+    ]
+  },
+
+  {
+    "question": "🍄🍄🍄",
+    "correct_answer": "Mushroom",
+    "incorrect_answers": [
+      "Cucumber",
+      "Broccoli",
+      "Garlic"
+    ]
+  },
+
+  {
+    "question": "🍟🍟🍟",
+    "correct_answer": "French Fries",
+    "incorrect_answers": [
+      "Peanuts",
+      "Hot Pepper",
+      "Eggplant"
+    ]
+  },
+
+  {
+    "question": "🍒🍒🍒",
+    "correct_answer": "Cherries",
+    "incorrect_answers": [
+      "Pineapple",
+      "Strawberry",
+      "Carrot"
+    ]
+  }
+
+
+]
