@@ -85,10 +85,13 @@ const generateQuestions = () => {
         .sort(() => 0.4 - Math.random())
         .slice(0, 4);
 
+        const emoji = shuffled[0].replace(shuffled[0].substring(3), '');
+        const word = shuffled[0].substring(3);
+
 
         questions.push({
-            question: shuffled[0].replace(shuffled[0].substring(3), ""),
-            correct_answer: shuffled[0].substring(3),
+            question: `${emoji}${emoji}${emoji}`,
+            correct_answer: word,
             incorrect_answers: [
                 shuffled[1].substring(3),
                 shuffled[2].substring(3),
