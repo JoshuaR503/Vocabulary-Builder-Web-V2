@@ -41,7 +41,7 @@ const items = [
     '🧇 Waffle',
     '🧀 Cheese',
     '🍖 Meat',
-    '🍗 Poultry Leg',
+    '🍗 Chicken Leg',
     '🥩 Meat',
     '🥓 Bacon',
     '🍔 Hamburger',
