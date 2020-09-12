@@ -1,29 +1,32 @@
-const username = document.getElementById('username');
-const saveScoreBtn = document.getElementById('saveScoreBtn');
 const finalScore = document.getElementById('finalScore');
 const mostRecentScore = localStorage.getItem('mostRecentScore');
+const possibleScore = localStorage.getItem('possibleScore');
 
-const highScores = JSON.parse(localStorage.getItem('highScores')) || [];
+finalScore.innerText = `${possibleScore}/${mostRecentScore}`;
 
-const MAX_HIGH_SCORES = 5;
 
-finalScore.innerText = mostRecentScore;
+const celebrate = () => {
+    const duration = 3 * 1000;
+    const animationEnd = Date.now() + duration;
+    const defaults = { startVelocity: 15, spread: 560, ticks: 60, zIndex: 0 };
+    
+    function randomInRange(min, max) {
+      return Math.random() * (max - min) + min;
+    }
+    
+    const interval = setInterval(function() {
+    const timeLeft = animationEnd - Date.now();
 
-username.addEventListener('keyup', () => {
-    saveScoreBtn.disabled = !username.value;
-});
+    if (timeLeft <= 0) {
+      return clearInterval(interval);
+    }
 
-saveHighScore = (e) => {
-    e.preventDefault();
+    const particleCount = 100 * (timeLeft / duration);
+    // since particles fall down, start a bit higher than random
+    confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 } }));
+      confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } }));
+    }, 250);
+}
 
-    const score = {
-        score: mostRecentScore,
-        name: username.value,
-    };
-    highScores.push(score);
-    highScores.sort((a, b) => b.score - a.score);
-    highScores.splice(5);
 
-    localStorage.setItem('highScores', JSON.stringify(highScores));
-    window.location.assign('/');
-};
+celebrate();
