@@ -1,6 +1,4 @@
-
 const fileSystem = require('fs');
-
 const items = [
     '🍇 Grapes',
     '🍈 Melon',
@@ -89,13 +87,12 @@ const items = [
     '🦃 Turkey',
     '🐔 Chicken',
     '🐓 Rooster',
-    '🐣 Hatching Chick',
+    '🐣 Chick',
     '🐊 Crocodile',
     '🐢 Turtle',
     '🦎 Lizard',
     '🐍 Snake',
 ];
-
 
 const questions = [];
 const generateQuestions = () => {
@@ -109,7 +106,6 @@ const generateQuestions = () => {
         const emoji = shuffled[0].replace(shuffled[0].substring(3), '');
         const word = shuffled[0].substring(3);
 
-
         questions.push({
             question: `${emoji}${emoji}${emoji}${emoji}`,
             correct_answer: word,
@@ -118,13 +114,11 @@ const generateQuestions = () => {
                 shuffled[2].substring(3),
                 shuffled[3].substring(3),
             ]
-        })    
+        });
     }
 }
 
 generateQuestions();
-
-
 
 fileSystem.writeFile("questions.json", JSON.stringify(questions), function(err, result) {
     if(err) console.log('error', err);

@@ -95,6 +95,7 @@ choices.forEach((choice) => {
         };
 
         acceptingAnswers = false;
+
         const selectedChoice = e.target;
         const selectedAnswer = selectedChoice.dataset['number'];
         const classToApply = selectedAnswer == currentQuestion.answer 
@@ -113,6 +114,19 @@ choices.forEach((choice) => {
         }, 1000);
     });
 });
+
+const report = () => {
+    fetch('https://vocabulary-builder.herokuapp.com/v2/missing', {
+      method: 'POST', 
+      headers: { 'Content-Type': 'application/json'},
+      body: JSON.stringify({name: currentQuestion.question}),
+    })
+    .then(() => {
+        incrementScore(CORRECT_BONUS);
+        loadNewQuestion();
+    })
+    .catch((error) => loadNewQuestion());
+}
 
 incrementScore = (num) => {
     score += num;

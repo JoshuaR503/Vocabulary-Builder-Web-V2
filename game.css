@@ -14,6 +14,17 @@
   transition: transform 150ms;
 }
 
+.report-emoji{
+  margin-top: 8rem;
+  font-size: 2rem;
+  font-weight: 500;
+  letter-spacing: .05rem;
+
+  color: #181818;
+  padding: 1.5rem;
+  width: 100%;
+}
+
 .choice-text {
 
   font-size: 2.5rem;
