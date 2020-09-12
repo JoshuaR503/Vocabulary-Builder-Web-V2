@@ -74,7 +74,7 @@ const items = [
     '⛱ Umbrella',
     '🧨 Firecracker',
     '🎈 Balloon',
-    '🎉 Party Popper',
+    '🎉 Party',
     '🐒 Monkey',
     '🦍 Gorilla',
     '🐕 Dog',
@@ -91,6 +91,17 @@ const items = [
     '🐢 Turtle',
     '🦎 Lizard',
     '🐍 Snake',
+    '🌹 Rose',
+    '🥀 Wilted Flower',
+    '🌻 Sunflower',
+    '🌲 Tree',
+    '🌳 Tree',
+    '🌴 Palm Tree',
+    '🌵 Cactus',
+    '🌧 Cloud with Rain',
+    '🔥 Fire',
+    '💧 Droplet',
+    '🔑 Key'
 ];
 
 const questions = [];
