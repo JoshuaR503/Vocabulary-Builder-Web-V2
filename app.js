@@ -1,0 +1,107 @@
+
+const fileSystem = require('fs');
+
+const items = [
+    '🍇 Grapes',
+    '🍈 Melon',
+    '🍉 Watermelon',
+    '🍊 Tangerine',
+    '🍋 Lemon',
+    '🍌 Banana',
+    '🍍 Pineapple',
+    '🥭 Mango',
+    '🍎 Red Apple',
+    '🍏 Green Apple',
+    '🍐 Pear',
+    '🍑 Peach',
+    '🍒 Cherries',
+    '🍓 Strawberry',
+    '🥝 Kiwi Fruit',
+    '🍅 Tomato',
+    '🥥 Coconut',
+    '🥑 Avocado',
+    '🍆 Eggplant',
+    '🥔 Potato',
+    '🥕 Carrot',
+    '🌽 Corn',
+    '🌶 Hot Pepper',
+    '🥒 Cucumber',
+    '🥬 Leafy Green',
+    '🥦 Broccoli',
+    '🧄 Garlic',
+    '🧅 Onion',
+    '🍄 Mushroom',
+    '🥜 Peanuts',
+    '🍞 Bread',
+    '🥐 Croissant',
+    '🥖 Baguette Bread',
+    '🥨 Pretzel',
+    '🥯 Bagel',
+    '🥞 Pancakes',
+    '🧇 Waffle',
+    '🧀 Cheese',
+    '🍖 Meat',
+    '🍗 Poultry Leg',
+    '🥩 Meat',
+    '🥓 Bacon',
+    '🍔 Hamburger',
+    '🍟 French Fries',
+    '🍕 Pizza',
+    '🌭 Hot Dog',
+    '🥪 Sandwich',
+    '🌮 Taco',
+    '🌯 Burrito',
+    '🥚 Egg',
+    '🍿 Popcorn',
+    '🧈 Butter',
+    '🧂 Salt',
+    '🍚 Rice',
+    '🍝 Spaghetti',
+    '🍢 Oden',
+    '🍣 Sushi',
+    '🍤 Shrimp',
+    '🥠 Fortune Cookie',
+    '🦪 Oyster',
+    '🍦 Ice Cream',
+    '🍧 Shaved Ice',
+    '🍨 Ice Cream',
+    '🍩 Doughnut',
+    '🍪 Cookie',
+    '🎂 Birthday Cake',
+    '🧁 Cupcake',
+    '🥧 Pie',
+    '🍫 Chocolate Bar',
+    '🍬 Candy',
+    '🍭 Lollipop',
+];
+
+
+const questions = [];
+const generateQuestions = () => {
+
+    for (let index = 0; index < items.length; index++) {
+
+        const shuffled = items
+        .sort(() => 0.4 - Math.random())
+        .slice(0, 4);
+
+
+        questions.push({
+            question: shuffled[0].replace(shuffled[0].substring(3), ""),
+            correct_answer: shuffled[0].substring(3),
+            incorrect_answers: [
+                shuffled[1].substring(3),
+                shuffled[2].substring(3),
+                shuffled[3].substring(3),
+            ]
+        })    
+    }
+}
+
+generateQuestions();
+
+
+
+fileSystem.writeFile("questions.json", JSON.stringify(questions), function(err, result) {
+    if(err) console.log('error', err);
+});

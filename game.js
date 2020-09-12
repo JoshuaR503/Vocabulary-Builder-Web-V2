@@ -1,5 +1,7 @@
 const question = document.getElementById('question');
+
 const choices = Array.from(document.getElementsByClassName('choice-text'));
+
 const progressText = document.getElementById('progressText');
 const scoreText = document.getElementById('score');
 const loader = document.getElementById('loader');
@@ -24,7 +26,6 @@ fetch('questions.json')
         };
 
         const answerChoices = [...loadedQuestion.incorrect_answers];
-        
 
         formattedQuestion.answer = Math.floor(Math.random() * 4) + 1;
         
@@ -41,49 +42,55 @@ fetch('questions.json')
         return formattedQuestion;
     });
 
-    // console.log(questions);
     startGame();
 })
 .catch((err) =>  console.error(err));
-
-console.log(questions);
 
 //CONSTANTS
 const CORRECT_BONUS = 10;
 const MAX_QUESTIONS = 50;
 
+
 startGame = () => {
     questionCounter = 0;
     score = 0;
     availableQuesions = [...questions];
-    getNewQuestion();
+
+    loadNewQuestion();
     game.classList.remove('hidden');
     loader.classList.add('hidden');
 };
 
-getNewQuestion = () => {
+loadNewQuestion = () => {
+
     if (availableQuesions.length === 0 || questionCounter >= MAX_QUESTIONS) {
         localStorage.setItem('mostRecentScore', score);
         //go to the end page
         return window.location.assign('/end.html');
     }
+
+    // Increment counter.
     questionCounter++;
 
 
+    // Select random question.
     const questionIndex = Math.floor(Math.random() * availableQuesions.length);
-    currentQuestion = availableQuesions[questionIndex];
-    question.innerHTML = currentQuestion.question;
 
+    currentQuestion = availableQuesions[questionIndex];
+
+    question.innerHTML = currentQuestion.question;
     choices.forEach((choice) => {
-        const number = choice.dataset['number'];
-        choice.innerHTML = currentQuestion['choice' + number];
+        choice.innerHTML = currentQuestion['choice' + choice.dataset['number']];
     });
 
     availableQuesions.splice(questionIndex, 1);
     acceptingAnswers = true;
 };
 
+
 choices.forEach((choice) => {
+
+
     choice.addEventListener('click', (e) => {
         if (!acceptingAnswers) return;
 
@@ -98,13 +105,17 @@ choices.forEach((choice) => {
             incrementScore(CORRECT_BONUS);
         }
 
+
         selectedChoice.parentElement.classList.add(classToApply);
+
 
         setTimeout(() => {
             selectedChoice.parentElement.classList.remove(classToApply);
-            getNewQuestion();
+            loadNewQuestion();
         }, 1000);
     });
+
+
 });
 
 incrementScore = (num) => {
