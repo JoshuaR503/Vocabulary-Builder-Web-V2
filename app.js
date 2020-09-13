@@ -110,8 +110,8 @@ const generateQuestions = () => {
     for (let index = 0; index < items.length; index++) {
 
         const shuffled = items
-        .sort(() => 0.4 - Math.random())
-        .slice(0, 4);
+        .sort(() => 0.3 - Math.random())
+        .slice(0, 3);
 
         const emoji = shuffled[0].replace(shuffled[0].substring(3), '');
         const word = shuffled[0].substring(3);

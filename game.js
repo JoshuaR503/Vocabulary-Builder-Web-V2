@@ -1,7 +1,6 @@
-const question = document.getElementById('question');
-
 const choices = Array.from(document.getElementsByClassName('choice-text'));
 
+const question = document.getElementById('question');
 const progressText = document.getElementById('progressText');
 const scoreText = document.getElementById('score');
 const loader = document.getElementById('loader');
@@ -15,6 +14,7 @@ let currentQuestion = {};
 let availableQuesions = [];
 
 let questions = [];
+scoreText.innerText = '';
 
 fetch('questions.json')
 .then((res) =>  res.json())
@@ -28,7 +28,7 @@ fetch('questions.json')
 
         const answerChoices = [...loadedQuestion.incorrect_answers];
 
-        formattedQuestion.answer = Math.floor(Math.random() * 4) + 1;
+        formattedQuestion.answer = Math.floor(Math.random() * 3) + 1;
         
         answerChoices.splice(
             formattedQuestion.answer - 1,
@@ -51,7 +51,7 @@ fetch('questions.json')
 const CORRECT_BONUS = 10;
 const MAX_QUESTIONS = 25;
 
-startGame = () => {
+const startGame = () => {
     questionCounter = 0;
     score = 0;
     availableQuesions = [...questions];
@@ -65,7 +65,6 @@ const loadNewQuestion = () => {
     if (availableQuesions.length === 0 || questionCounter >= MAX_QUESTIONS) {
         localStorage.setItem('mostRecentScore', score);
         localStorage.setItem('possibleScore',MAX_QUESTIONS * 10 );
-        
         //go to the end page
         return window.location.assign('/end.html');
     }
@@ -86,7 +85,6 @@ const loadNewQuestion = () => {
     availableQuesions.splice(questionIndex, 1);
     acceptingAnswers = true;
 };
-
 
 choices.forEach((choice) => {
     choice.addEventListener('click', (e) => {
@@ -125,7 +123,7 @@ const report = () => {
         incrementScore(CORRECT_BONUS);
         loadNewQuestion();
     })
-    .catch((error) => loadNewQuestion());
+    .catch(() => loadNewQuestion());
 }
 
 incrementScore = (num) => {
