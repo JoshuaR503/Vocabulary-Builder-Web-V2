@@ -13,7 +13,9 @@
   transform: translateY(-0.1rem);
   transition: transform 150ms;
 }
-
+.imageRow {
+  white-space: nowrap;
+}
 .report-emoji{
   margin-top:4rem;
   margin-bottom:4rem;

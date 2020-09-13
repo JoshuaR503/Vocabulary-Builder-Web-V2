@@ -1,132 +1,72 @@
 const fileSystem = require('fs');
-const items = [
-    '🍇 Grapes',
-    '🍈 Melon',
-    '🍉 Watermelon',
-    '🍊 Tangerine',
-    '🍋 Lemon',
-    '🍌 Banana',
-    '🍍 Pineapple',
-    '🥭 Mango',
-    '🍎 Red Apple',
-    '🍏 Green Apple',
-    '🍐 Pear',
-    '🍑 Peach',
-    '🍒 Cherries',
-    '🍓 Strawberry',
-    '🥝 Kiwi Fruit',
-    '🍅 Tomato',
-    '🥥 Coconut',
-    '🥑 Avocado',
-    '🍆 Eggplant',
-    '🥔 Potato',
-    '🥕 Carrot',
-    '🌽 Corn',
-    '🌶 Hot Pepper',
-    '🥒 Cucumber',
-    '🥬 Leafy Green',
-    '🥦 Broccoli',
-    '🧄 Garlic',
-    '🍄 Mushroom',
-    '🥜 Peanuts',
-    '🍞 Bread',
-    '🥐 Croissant',
-    '🥖 Baguette Bread',
-    '🥨 Pretzel',
-    '🥯 Bagel',
-    '🥞 Pancakes',
-    '🧇 Waffle',
-    '🧀 Cheese',
-    '🍖 Meat',
-    '🍗 Chicken Leg',
-    '🥩 Meat',
-    '🥓 Bacon',
-    '🍔 Hamburger',
-    '🍟 French Fries',
-    '🍕 Pizza',
-    '🌭 Hot Dog',
-    '🥪 Sandwich',
-    '🌮 Taco',
-    '🌯 Burrito',
-    '🥚 Egg',
-    '🍿 Popcorn',
-    '🧈 Butter',
-    '🧂 Salt',
-    '🍚 Rice',
-    '🍝 Spaghetti',
-    '🍢 Oden',
-    '🍣 Sushi',
-    '🍤 Shrimp',
-    '🥠 Fortune Cookie',
-    '🍦 Ice Cream',
-    '🍧 Shaved Ice',
-    '🍨 Ice Cream',
-    '🍩 Doughnut',
-    '🍪 Cookie',
-    '🎂 Birthday Cake',
-    '🧁 Cupcake',
-    '🥧 Pie',
-    '🍫 Chocolate Bar',
-    '🍬 Candy',
-    '🍭 Lollipop',
-    '🌡 Thermometer',
-    '🎈 Balloon',
-    '🎉 Party',
-    '🐒 Monkey',
-    '🦍 Gorilla',
-    '🐕 Dog',
-    '🐺 Wolf',
-    '🦊 Fox',
-    '🦝 Raccoon',
-    '🐈 Cat',
-    '🦁 Lion',
-    '🦃 Turkey',
-    '🐔 Chicken',
-    '🐓 Rooster',
-    '🐣 Chick',
-    '🐊 Crocodile',
-    '🐢 Turtle',
-    '🦎 Lizard',
-    '🐍 Snake',
-    '🌹 Rose',
-    '🥀 Wilted Flower',
-    '🌻 Sunflower',
-    '🌲 Tree',
-    '🌳 Tree',
-    '🌴 Palm Tree',
-    '🌵 Cactus',
-    '🌧 Cloud with Rain',
-    '🔥 Fire',
-    '💧 Droplet',
-    '🔑 Key'
-];
+const items = JSON.parse(fileSystem.readFileSync('openemoji.animal-mamal.json', 'utf8'));
 
-const questions = [];
-const generateQuestions = () => {
+const removeKeyword = (items, keyword) => {
+    return items.filter((item) => {
+        const containsKeyword = item.tags
+        .split(', ')
+        .includes(keyword);
 
-    for (let index = 0; index < items.length; index++) {
-
-        const shuffled = items
-        .sort(() => 0.3 - Math.random())
-        .slice(0, 3);
-
-        const emoji = shuffled[0].replace(shuffled[0].substring(3), '');
-        const word = shuffled[0].substring(3);
-
-        questions.push({
-            question: `${emoji}${emoji}${emoji}${emoji}`,
-            correct_answer: word,
-            incorrect_answers: [
-                shuffled[1].substring(3),
-                shuffled[2].substring(3),
-                // shuffled[3].substring(3),
-            ]
-        });
-    }
+        if (!containsKeyword) {
+            return item;
+        }
+    });
 }
 
-generateQuestions();
+const cleanItems = (items) => {
+    const cleanedItems = [];
 
-fileSystem.writeFile("questions.json", JSON.stringify(questions), function(err, result) {
-    if(err) console.log('error', err);
+    items.forEach((item) => {
+
+        const emojiName =  item.annotation;
+        const emojiDirectory = `/open_emoji/${item.hexcode}.svg`;
+
+        cleanedItems.push({
+            name: emojiName.charAt(0).toUpperCase() + emojiName.slice(1),
+            code: emojiDirectory
+        });
+    });
+
+    return cleanedItems;
+}
+
+const generateQuestions = (items) => {
+
+    const questions = [];
+
+    // const shuffledItems = items
+    // .sort(() => 0.3 - Math.random())
+    // .slice(0, 3);
+
+    
+
+    items.forEach((item) => {
+
+        const shuffledItems = items
+        .sort(() => Math.random() - Math.random())
+        .slice(0,3);
+
+        console.log(shuffledItems);
+
+        questions.push({
+            question: item.code,
+            correct_answer: item.name,
+            incorrect_answers: [
+                shuffledItems[1].name,
+                shuffledItems[2].name,
+            ]
+        });
+    })
+
+    return questions;
+}
+
+const cleanArray = removeKeyword(items, 'face');
+const cleanedArray = cleanItems(cleanArray);
+const questions = generateQuestions(cleanedArray);
+
+fileSystem.writeFile("questions.json", JSON.stringify(questions), (err, result) => {
+    if (err) {
+        console.log('error', err);
+    }
 });

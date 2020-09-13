@@ -1,0 +1,452 @@
+
+fox
+1F98A
+
+raccoon
+1F99D
+
+cat
+1F408
+
+
+tiger
+1F405
+
+leopard
+1F406
+
+horse face
+1F434
+
+unicorn
+1F984
+
+zebra
+1F993
+
+deer
+1F98C
+
+ox
+1F402
+
+water buffalo
+1F403
+
+cow
+1F404
+
+pig
+1F416
+
+boar
+boar
+1F417
+
+pig nose
+pig nose
+1F43D
+
+ram
+ram
+1F40F
+
+ewe
+ewe
+1F411
+
+goat
+goat
+1F410
+
+camel
+camel
+1F42A
+
+two-hump camel
+two-hump camel
+1F42B
+
+llama
+llama
+1F999
+
+giraffe
+giraffe
+1F992
+
+elephant
+elephant
+1F418
+
+rhinoceros
+rhinoceros
+1F98F
+
+hippopotamus
+hippopotamus
+1F99B
+
+mouse face
+mouse face
+1F42D
+
+mouse
+mouse
+1F401
+
+rat
+rat
+1F400
+
+hamster
+hamster
+1F439
+
+rabbit face
+rabbit face
+1F430
+
+rabbit
+rabbit
+1F407
+
+chipmunk
+chipmunk
+1F43F
+
+hedgehog
+hedgehog
+1F994
+
+bat
+bat
+1F987
+
+bear
+bear
+1F43B
+
+polar bear
+polar bear
+1F43B-200D-2744-FE0F
+
+koala
+koala
+1F428
+
+panda
+panda
+1F43C
+
+sloth
+sloth
+1F9A5
+
+otter
+otter
+1F9A6
+
+skunk
+skunk
+1F9A8
+
+kangaroo
+kangaroo
+1F998
+
+badger
+badger
+1F9A1
+
+paw prints
+paw prints
+1F43E
+
+turkey
+turkey
+1F983
+
+chicken
+chicken
+1F414
+
+rooster
+rooster
+1F413
+
+hatching chick
+hatching chick
+1F423
+
+baby chick
+baby chick
+1F424
+
+front-facing baby chick
+front-facing baby chick
+1F425
+
+bird
+bird
+1F426
+
+penguin
+penguin
+1F427
+
+dove
+dove
+1F54A
+
+eagle
+eagle
+1F985
+
+duck
+duck
+1F986
+
+swan
+swan
+1F9A2
+
+owl
+owl
+1F989
+
+feather
+feather
+1FAB6
+
+flamingo
+flamingo
+1F9A9
+
+peacock
+peacock
+1F99A
+
+parrot
+parrot
+1F99C
+
+frog
+frog
+1F438
+
+crocodile
+crocodile
+1F40A
+
+turtle
+turtle
+1F422
+
+lizard
+lizard
+1F98E
+
+snake
+snake
+1F40D
+
+dragon face
+dragon face
+1F432
+
+dragon
+dragon
+1F409
+
+sauropod
+sauropod
+1F995
+
+T-Rex
+T-Rex
+1F996
+
+spouting whale
+spouting whale
+1F433
+
+whale
+whale
+1F40B
+
+dolphin
+dolphin
+1F42C
+
+fish
+fish
+1F41F
+
+tropical fish
+tropical fish
+1F420
+
+blowfish
+blowfish
+1F421
+
+shark
+shark
+1F988
+
+octopus
+octopus
+1F419
+
+spiral shell
+spiral shell
+1F41A
+
+snail
+snail
+1F40C
+
+butterfly
+butterfly
+1F98B
+
+bug
+bug
+1F41B
+
+ant
+ant
+1F41C
+
+honeybee
+honeybee
+1F41D
+
+lady beetle
+lady beetle
+1F41E
+
+cricket
+cricket
+1F997
+
+spider
+spider
+1F577
+
+spider web
+spider web
+1F578
+
+scorpion
+scorpion
+1F982
+
+mosquito
+mosquito
+1F99F
+
+fly
+fly
+1FAB0
+
+worm
+worm
+1FAB1
+
+microbe
+microbe
+1F9A0
+
+bouquet
+bouquet
+1F490
+
+cherry blossom
+cherry blossom
+1F338
+
+white flower
+white flower
+1F4AE
+
+rosette
+rosette
+1F3F5
+
+rose
+rose
+1F339
+
+wilted flower
+wilted flower
+1F940
+
+hibiscus
+hibiscus
+1F33A
+
+sunflower
+sunflower
+1F33B
+
+blossom
+blossom
+1F33C
+
+tulip
+tulip
+1F337
+
+seedling
+seedling
+1F331
+
+potted plant
+potted plant
+1FAB4
+
+evergreen tree
+evergreen tree
+1F332
+
+deciduous tree
+deciduous tree
+1F333
+
+palm tree
+palm tree
+1F334
+
+cactus
+cactus
+1F335
+
+sheaf of rice
+sheaf of rice
+1F33E
+
+herb
+herb
+1F33F
+
+shamrock
+shamrock
+2618
+
+four leaf clover
+four leaf clover
+1F340
+
+maple leaf
+maple leaf
+1F341
+
+fallen leaf
+fallen leaf
+1F342
+
+leaf fluttering in wind
+leaf fluttering in wind
+1F343

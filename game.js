@@ -1,6 +1,7 @@
 const choices = Array.from(document.getElementsByClassName('choice-text'));
 
-const question = document.getElementById('question');
+const images  = Array.from(document.getElementsByClassName('image'));
+
 const progressText = document.getElementById('progressText');
 const scoreText = document.getElementById('score');
 const loader = document.getElementById('loader');
@@ -77,7 +78,15 @@ const loadNewQuestion = () => {
 
     currentQuestion = availableQuesions[questionIndex];
 
-    question.innerHTML = currentQuestion.question;
+    images.forEach((image) => {
+
+        image.src = currentQuestion.question;
+
+
+        console.log(image);
+
+    });
+
     choices.forEach((choice) => {
         choice.innerHTML = currentQuestion['choice' + choice.dataset['number']];
     });
