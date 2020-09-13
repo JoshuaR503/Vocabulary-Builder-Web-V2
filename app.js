@@ -98,13 +98,14 @@ const writeQuestionsFile = (content) => {
     });
 }
 
-// Run
+/// Program starts here.
 (() => {
     const root = 'open_emoji_json';
     const files = [
         `${root}/animal-bird.json`,
         `${root}/animal-mamal.json`,
         `${root}/animal-reptile.json`,
+        `${root}/animal-marine.json`,
     ];
 
     createQuestions(files);
