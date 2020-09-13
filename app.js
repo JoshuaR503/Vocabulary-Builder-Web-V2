@@ -1,15 +1,31 @@
 const fileSystem = require('fs');
-const items = JSON.parse(fileSystem.readFileSync('openemoji.animal-mamal.json', 'utf8'));
+const animals = JSON.parse(fileSystem.readFileSync('openemoji.animal-mamal.json', 'utf8'));
+
+const containsKeywordArray = (array, keyword) => {
+    return array
+    .split(', ')
+    .includes(keyword);
+}
+
+const containsKeywordString = (string, keyword) => {
+    return string.includes(keyword);
+}
 
 const removeKeyword = (items, keyword) => {
     return items.filter((item) => {
-        const containsKeyword = item.tags
-        .split(', ')
-        .includes(keyword);
 
-        if (!containsKeyword) {
+        const hasKeywordTwice  = 
+            containsKeywordArray(item.tags, keyword) && 
+            containsKeywordString(item.annotation, keyword);
+
+        if (!hasKeywordTwice) {
             return item;
         }
+
+        console.log('\n =============')
+        console.log(item.tags);
+        console.log(item.annotation);
+        console.log(hasKeywordTwice);
     });
 }
 
@@ -40,8 +56,6 @@ const generateQuestions = (items) => {
         .sort(() => 0.4 - Math.random())
         .slice(0,4);
 
-        console.log(shuffledItems);
-
         questions.push({
             question: item.code,
             correct_answer: item.name,
@@ -56,12 +70,14 @@ const generateQuestions = (items) => {
     return questions;
 }
 
-const cleanArray = removeKeyword(items, 'face');
+const cleanArray = removeKeyword(animals, 'face');
 const cleanedArray = cleanItems(cleanArray);
 const questions = generateQuestions(cleanedArray);
 
 fileSystem.writeFile("questions.json", JSON.stringify(questions), (err, result) => {
     if (err) {
-        console.log('error', err);
+        console.log('There was an error:', err);
+    } else {
+        console.log('New words created');
     }
 });
