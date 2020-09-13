@@ -17,7 +17,7 @@ let availableQuesions = [];
 let questions = [];
 scoreText.innerText = '';
 
-fetch('questions.json')
+fetch('../assets/questions.json')
 .then((res) =>  res.json())
 .then((loadedQuestions) => {
 
@@ -78,7 +78,7 @@ const loadNewQuestion = () => {
 
     currentQuestion = availableQuesions[questionIndex];
 
-    images.forEach((image) => image.src = currentQuestion.question);
+    images.forEach((image) => image.src = `../assets/${currentQuestion.question}`);
     choices.forEach((choice) => choice.innerHTML = currentQuestion['choice' + choice.dataset['number']]);
 
     availableQuesions.splice(questionIndex, 1);

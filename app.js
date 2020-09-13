@@ -100,13 +100,13 @@ const writeQuestionsFile = (content) => {
 
 const getFiles = () => {
 
-    const root = 'open_emoji_json';
+    const emojisDir = 'data/open_emoji_json';
     const files = [];
 
     fileSystem
-    .readdirSync(root)
+    .readdirSync(emojisDir)
     .forEach(file => files
-    .push(`${root}/${file}`));
+    .push(`${emojisDir}/${file}`));
 
     return files;
 }
