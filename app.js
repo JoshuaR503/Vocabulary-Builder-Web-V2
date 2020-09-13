@@ -104,16 +104,16 @@ const getFiles = () => {
     const root = 'open_emoji_json';
     const files = [];
 
-    fileSystem.readdirSync(root).forEach(file => files.push(`${root}/${file}`));
+    fileSystem
+    .readdirSync(root)
+    .forEach(file => files
+    .push(`${root}/${file}`));
 
     return files;
 }
 
 /// Program starts here.
 (() => {
-    const files = getFiles();
-
-    console.log(files);
-    // createQuestions(files);
-    // writeQuestionsFile(bigArray);
+    createQuestions(getFiles());
+    writeQuestionsFile(bigArray);
 })();
