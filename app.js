@@ -1,4 +1,5 @@
 const fileSystem = require('fs');
+const { get } = require('http');
 const bigArray = [];
 
 // Utils
@@ -98,16 +99,21 @@ const writeQuestionsFile = (content) => {
     });
 }
 
+const getFiles = () => {
+
+    const root = 'open_emoji_json';
+    const files = [];
+
+    fileSystem.readdirSync(root).forEach(file => files.push(`${root}/${file}`));
+
+    return files;
+}
+
 /// Program starts here.
 (() => {
-    const root = 'open_emoji_json';
-    const files = [
-        `${root}/animal-bird.json`,
-        `${root}/animal-mamal.json`,
-        `${root}/animal-reptile.json`,
-        `${root}/animal-marine.json`,
-    ];
+    const files = getFiles();
 
-    createQuestions(files);
-    writeQuestionsFile(bigArray);
+    console.log(files);
+    // createQuestions(files);
+    // writeQuestionsFile(bigArray);
 })();
