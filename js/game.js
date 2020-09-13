@@ -88,6 +88,7 @@ const startGame = () => {
 };
 
 const loadQuestions = (data) => {
+
     questions = data.map((loadedQuestion) => {
     
         const choices = [...loadedQuestion.incorrect_answers];
