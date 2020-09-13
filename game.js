@@ -122,18 +122,6 @@ choices.forEach((choice) => {
     });
 });
 
-const report = () => {
-    fetch('https://vocabulary-builder.herokuapp.com/v2/missing', {
-      method: 'POST', 
-      headers: { 'Content-Type': 'application/json'},
-      body: JSON.stringify({name: currentQuestion.question}),
-    })
-    .then(() => {
-        incrementScore(CORRECT_BONUS);
-        loadNewQuestion();
-    })
-    .catch(() => loadNewQuestion());
-}
 
 incrementScore = (num) => {
     score += num;

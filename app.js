@@ -34,17 +34,11 @@ const generateQuestions = (items) => {
 
     const questions = [];
 
-    // const shuffledItems = items
-    // .sort(() => 0.3 - Math.random())
-    // .slice(0, 3);
-
-    
-
     items.forEach((item) => {
 
         const shuffledItems = items
-        .sort(() => Math.random() - Math.random())
-        .slice(0,3);
+        .sort(() => 0.4 - Math.random())
+        .slice(0,4);
 
         console.log(shuffledItems);
 
@@ -54,6 +48,7 @@ const generateQuestions = (items) => {
             incorrect_answers: [
                 shuffledItems[1].name,
                 shuffledItems[2].name,
+                shuffledItems[3].name,
             ]
         });
     })
