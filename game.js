@@ -78,18 +78,8 @@ const loadNewQuestion = () => {
 
     currentQuestion = availableQuesions[questionIndex];
 
-    images.forEach((image) => {
-
-        image.src = currentQuestion.question;
-
-
-        console.log(image);
-
-    });
-
-    choices.forEach((choice) => {
-        choice.innerHTML = currentQuestion['choice' + choice.dataset['number']];
-    });
+    images.forEach((image) => image.src = currentQuestion.question);
+    choices.forEach((choice) => choice.innerHTML = currentQuestion['choice' + choice.dataset['number']]);
 
     availableQuesions.splice(questionIndex, 1);
     acceptingAnswers = true;
@@ -118,7 +108,7 @@ choices.forEach((choice) => {
         setTimeout(() => {
             selectedChoice.parentElement.classList.remove(classToApply);
             loadNewQuestion();
-        }, 1000);
+        }, 500);
     });
 });
 

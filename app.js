@@ -1,5 +1,10 @@
 const fileSystem = require('fs');
-const animals = JSON.parse(fileSystem.readFileSync('openemoji.animal-mamal.json', 'utf8'));
+const bigArray = [];
+
+// Utils
+const openFile = (name) => {
+    return JSON.parse(fileSystem.readFileSync(name, 'utf8'));
+}
 
 const containsKeywordArray = (array, keyword) => {
     return array
@@ -11,6 +16,7 @@ const containsKeywordString = (string, keyword) => {
     return string.includes(keyword);
 }
 
+// Heavy lifting
 const removeKeyword = (items, keyword) => {
     return items.filter((item) => {
 
@@ -22,10 +28,10 @@ const removeKeyword = (items, keyword) => {
             return item;
         }
 
-        console.log('\n =============')
-        console.log(item.tags);
-        console.log(item.annotation);
-        console.log(hasKeywordTwice);
+        // console.log('\n =============')
+        // console.log(item.tags);
+        // console.log(item.annotation);
+        // console.log(hasKeywordTwice);
     });
 }
 
@@ -46,38 +52,61 @@ const cleanItems = (items) => {
     return cleanedItems;
 }
 
+// Init
 const generateQuestions = (items) => {
-
-    const questions = [];
-
     items.forEach((item) => {
 
-        const shuffledItems = items
-        .sort(() => 0.4 - Math.random())
-        .slice(0,4);
-
-        questions.push({
-            question: item.code,
-            correct_answer: item.name,
-            incorrect_answers: [
-                shuffledItems[1].name,
-                shuffledItems[2].name,
-                shuffledItems[3].name,
-            ]
-        });
-    })
-
-    return questions;
+        const uniqueItems = items
+        .sort(() => 0.6 - Math.random())
+        .slice(0,6)
+        .filter((v) => v.name !== item.name);
+        
+        if (uniqueItems.length > 4) {
+            bigArray.push({
+                question: item.code,
+                correct_answer: item.name,
+                incorrect_answers: [
+                    uniqueItems[1].name,
+                    uniqueItems[2].name,
+                    uniqueItems[3].name,
+                ]
+            });
+        } else {
+            console.log('skiped nonoptimel item');
+        }        
+    });
 }
 
-const cleanArray = removeKeyword(animals, 'face');
-const cleanedArray = cleanItems(cleanArray);
-const questions = generateQuestions(cleanedArray);
+const createQuestions = (files) => {
+    files.forEach((file) => {
 
-fileSystem.writeFile("questions.json", JSON.stringify(questions), (err, result) => {
-    if (err) {
-        console.log('There was an error:', err);
-    } else {
-        console.log('New words created');
-    }
-});
+        const array = openFile(file);
+        const cleanArray = removeKeyword(array, 'face');
+        const cleanedArray = cleanItems(cleanArray);
+
+        generateQuestions(cleanedArray)
+    });
+}
+
+const writeQuestionsFile = (content) => {
+    fileSystem.writeFile("questions.json", JSON.stringify(content), (err, result) => {
+        if (err) {
+            console.log('There was an error:', err);
+        } else {
+            console.log('New words created');
+        }
+    });
+}
+
+// Run
+(() => {
+    const root = 'open_emoji_json';
+    const files = [
+        `${root}/animal-bird.json`,
+        `${root}/animal-mamal.json`,
+        `${root}/animal-reptile.json`,
+    ];
+
+    createQuestions(files);
+    writeQuestionsFile(bigArray);
+})();
