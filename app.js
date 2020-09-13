@@ -1,5 +1,4 @@
 const fileSystem = require('fs');
-const { get } = require('http');
 const bigArray = [];
 
 // Utils
