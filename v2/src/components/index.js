@@ -1,5 +1,7 @@
-import Home from './Home.vue';
+import Home from './pages/Home.vue';
+import Game from './pages/Game.vue';
 
 export {
-    Home
+    Home,
+    Game
 }
