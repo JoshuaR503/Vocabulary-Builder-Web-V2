@@ -1,7 +1,5 @@
 <template>
   <div class="container">
-
-    <!-- <div id="loader"></div> -->
       
     <div class="game justify-center flex-column">
 
@@ -10,8 +8,6 @@
           <h1 class="hud-main-text"> {{score}} </h1>
         </div>
       </div>
-
-      <code>{{question}}</code>
 
       <div class="imageRow">
         <img v-bind:src="'/assets' + question.question" width="75" height="75" class="animate__animated animate__fadeInDown image">
@@ -51,12 +47,12 @@ export default {
     checkAnswer(event, choice) {
 
       if (this.acceptingAnswers) {
-
+        const MAX_POINTS = 10;
         const classToApply = this.question.answer === choice
           ? 'correct' 
           : 'incorrect';
 
-        const score = classToApply === 'correct' ? 10 : -10;
+        const score = classToApply === 'correct' ? MAX_POINTS : -MAX_POINTS;
         const selectedChoice =  event.target.parentElement;
 
         this.$store.commit('setAcceptingAnswers', false);

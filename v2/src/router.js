@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 
-import { Home, Game } from './components/index';
+import { Home, Game, End } from './components/index';
 
 Vue.use(Router);
 
@@ -15,6 +15,11 @@ const router = new Router({
       path: '/game',
       name: 'Game',
       component: Game
+    },
+    {
+      path: '/end',
+      name: 'End',
+      component: End
     },
   ]
 });

@@ -1,4 +1,5 @@
 import axios from 'axios';
+import router from '../../router';
 
 const state = {
     loading: true,
@@ -71,7 +72,8 @@ const actions = {
     },
 
     loadQuestion({commit, state}) {
-        const MAX_QUESTIONS = 10;
+        const MAX_POINTS = 10;
+        const MAX_QUESTIONS = MAX_POINTS;
         const gameOver = 
             state.availableQuestions.length === 0 || 
             state.questionCounter >= MAX_QUESTIONS;
@@ -79,21 +81,22 @@ const actions = {
         if (gameOver) {
 
             localStorage.setItem('mostRecentScore', state.score);
-            localStorage.setItem('possibleScore',MAX_QUESTIONS * 10 );
-    
-            // return window.location.assign('/pages/end.html');
-        } else {
-            // Select random question.
-            const questionIndex = Math.floor(Math.random() * state.availableQuestions.length);
-            const question = state.availableQuestions[questionIndex];
+            localStorage.setItem('possibleScore', MAX_QUESTIONS * MAX_POINTS );
             
-            // Set current question to question selected.
-            commit('setQuestion', question);
-            // Remove question form index.
-            commit('removeQuestion', questionIndex);
-            // Start accepting questions again.
-            commit('setAcceptingAnswers', true);
-        }
+            router.push('/end');
+        } 
+        // Select random question.
+        const questionIndex = Math.floor(Math.random() * state.availableQuestions.length);
+        const question = state.availableQuestions[questionIndex];
+
+        // Increment question counter.
+        commit('incrementQuestionCounter');
+        // Set current question to question selected.
+        commit('setQuestion', question);
+        // Remove question form index.
+        commit('removeQuestion', questionIndex);
+        // Start accepting questions again.
+        commit('setAcceptingAnswers', true);
     },
 }
 
