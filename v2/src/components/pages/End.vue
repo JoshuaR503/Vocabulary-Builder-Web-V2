@@ -4,8 +4,8 @@
       <h1 v-if="score > metadata.required_score">{{score}} de {{metadata.max_score}}</h1>
       <h1 v-if="score < metadata.required_score">¡Sigue practicando!</h1>
       <router-link class="btn" to="/report">Reporte</router-link>
-      <router-link class="btn" @click="clean()" to="/game">Jugar de nuevo</router-link>
-      <router-link class="btn" @click="clean()" to="/">Inicio</router-link>
+      <router-link class="btn" @click.native="clean" to="/game">Jugar de nuevo</router-link>
+      <router-link class="btn" @click.native="clean" to="/">Inicio</router-link>
     </div>
   </div>
 </template>
@@ -22,6 +22,7 @@ export default {
   ]),
   methods: {
     ...mapActions(['clean']),
+
     
     celebrate() {
       const duration = 3 * 1000;
@@ -48,7 +49,10 @@ export default {
   },
 
   mounted() {
-    if (this.score > this.metadata.required_score) {
+    if (
+      this.score > 
+      this.metadata.required_score
+    ) {
       this.celebrate();
     }
   }

@@ -11,7 +11,6 @@
       
         class="animate__animated animate__fadeInUp card">
 
-
         <div class="imageRow">
           <img v-bind:src="'/assets' + question.question" width="75" height="75" class="animate__animated animate__fadeInDown image">
           <img v-bind:src="'/assets' + question.question" width="75" height="75" class="animate__animated animate__fadeInDown image">
@@ -80,7 +79,6 @@ hr {
 }
 
 .card {
-  width: 90vw;
   display: flex;
   flex-direction: column;
   margin-bottom: 2rem;

@@ -45,6 +45,7 @@ const mutations  = {
     cleanScore: (state) => state.score = state.score = 0,
 
     incrementQuestionCounter: (state) => state.questionCounter++,
+    cleanQuestionCounter: (state) => state.questionCounter = 0,
 
     setAcceptingAnswers: (state, data) => state.acceptingAnswers = data,
     setQuestions: (state, questions) => state.questions = questions,
@@ -57,6 +58,7 @@ const mutations  = {
 
 const actions = {
     async loadQuestions({commit}) {
+        commit('setLoading', true);
         await axios
         .get('/assets/questions.json')
         .then((response) => {
@@ -87,11 +89,12 @@ const actions = {
 
             commit('setQuestions', shuffled);
             commit('setAvilableQuestions', [...shuffled]);
+            commit('setLoading', false);
         })
         .catch((err) => console.error('There was an error', err));
     },
 
-    loadQuestion({commit, state}) {
+    async loadQuestion({commit, state}) {
         const gameOver = 
             state.availableQuestions.length === 0 || 
             state.questionCounter >= MAX_QUESTIONS;
@@ -105,19 +108,25 @@ const actions = {
         } 
         // Select random question.
         const questionIndex = Math.floor(Math.random() * state.availableQuestions.length);
-        const question = state.availableQuestions[questionIndex];
+        const question =  state.availableQuestions[questionIndex];
 
-        // Increment question counter.
-        commit('incrementQuestionCounter');
         // Set current question to question selected.
         commit('setQuestion', question);
+        // Increment question counter.
+        commit('incrementQuestionCounter');
         // Remove question form index.
         commit('removeQuestion', questionIndex);
         // Start accepting questions again.
         commit('setAcceptingAnswers', true);
     },
 
+    modifyQuestion() {
+
+    },
+
     clean({commit}) {
+        console.log('CLEAN');
+        commit('cleanQuestionCounter');
         // Start from zero.
         commit('cleanScore');
         // Set current question to zero

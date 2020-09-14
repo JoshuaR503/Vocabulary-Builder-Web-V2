@@ -1,7 +1,7 @@
 <template>
   <div class="container">
       
-    <div class="game justify-center flex-column">
+    <div v-if="!loading" class="game justify-center flex-column">
 
       <div class="hud">
         <div class="hud-item">
@@ -17,15 +17,15 @@
       </div>
 
        <div 
+          @click="checkAnswer($event, index + 1)"
+
           v-for="(choice, index) in question.choices" 
           v-bind:key="index"
 
-          @click="checkAnswer($event, index + 1)"
           class="animate__animated animate__fadeInUp choice-container">
         <p class="choice-text">{{choice}}</p>
       </div>
     </div>
-
   </div>
 </template>
 
@@ -36,6 +36,7 @@ import { MAX_POINTS }from '../../config/variables';
 export default {
   name: 'Game',
   computed: mapGetters([
+    'loading',
     'score', 
     'acceptingAnswers', 
     'question',
@@ -52,9 +53,8 @@ export default {
           ? 'correct' 
           : 'incorrect';
 
-        const selectedChoice =  event.target.parentElement;
-        const score =   classToApply == 'correct' ?   MAX_POINTS : 0;
-        
+        const selectedChoice = event.target.parentElement;
+        const score = classToApply == 'correct' ? MAX_POINTS : 0;
         
         this.$store.commit('setAcceptingAnswers', false);
         this.$store.commit('setScore', score);
@@ -68,11 +68,9 @@ export default {
       }
     },
   },
-  async created () {
-    
+  async beforeMount () {
     await this.loadQuestions();
-    
-    this.loadQuestion();
+    await this.loadQuestion();
   },
 }
 </script>
