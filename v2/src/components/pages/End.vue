@@ -1,40 +1,28 @@
 <template>
-
   <div class="container">
-
     <div class="flex-center flex-column">
-      <h1>
-
-        <h1 v-if="score >= 50">{{score}} de 100</h1>
-        <h1 v-if="score < 49">¡Sigue practicando!</h1>
-
-      </h1>
-      <router-link class="btn" to="/game">Jugar</router-link>
-      <router-link class="btn" to="/">Inicio</router-link>
-
+      <h1 v-if="score > metadata.required_score">{{score}} de {{metadata.max_score}}</h1>
+      <h1 v-if="score < metadata.required_score">¡Sigue practicando!</h1>
+      <router-link class="btn" to="/report">Reporte</router-link>
+      <router-link class="btn" @click="clean()" to="/game">Jugar de nuevo</router-link>
+      <router-link class="btn" @click="clean()" to="/">Inicio</router-link>
     </div>
   </div>
-
 </template>
 
 <script>
 import confetti from 'canvas-confetti';
-import { mapGetters } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 
 export default {
   name: 'End',
   computed: mapGetters([
     'score', 
-    'acceptingAnswers', 
-    'question',
-    'availableQuestions',
+    'metadata', 
   ]),
   methods: {
-
-    message() {
-
-    },
-
+    ...mapActions(['clean']),
+    
     celebrate() {
       const duration = 3 * 1000;
       const animationEnd = Date.now() + duration;
@@ -60,7 +48,7 @@ export default {
   },
 
   mounted() {
-    if (this.score > 50) {
+    if (this.score > this.metadata.required_score) {
       this.celebrate();
     }
   }

@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 
-import { Home, Game, End } from './components/index';
+import { Home, Game, End, Report } from './components/index';
 
 Vue.use(Router);
 
@@ -20,6 +20,11 @@ const router = new Router({
       path: '/end',
       name: 'End',
       component: End
+    },
+    {
+      path: '/report',
+      name: 'Report',
+      component: Report
     },
   ]
 });

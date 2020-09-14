@@ -1,5 +1,10 @@
 import axios from 'axios';
 import router from '../../router';
+import {
+    MAX_QUESTIONS,
+    MAX_SCORE,
+    REQUIRED_SCORE
+}from '../../config/variables';
 
 const state = {
     loading: true,
@@ -9,8 +14,14 @@ const state = {
 
     acceptingAnswers: false,
     availableQuestions: [],
+
     questions: [],
     question: {},
+
+    metadata: {
+        max_score: MAX_SCORE,
+        required_score: REQUIRED_SCORE
+    }
 };
 
 const getters = {
@@ -24,12 +35,15 @@ const getters = {
     availableQuestions: state => state.availableQuestions,
     questions: state => state.questions,
     question: state => state.question,
+    metadata: state => state.metadata
 };
 
 const mutations  = {
     setLoading: (state, loading) => state.loading = loading,
 
     setScore: (state, score) => state.score = state.score += score,
+    cleanScore: (state) => state.score = state.score = 0,
+
     incrementQuestionCounter: (state) => state.questionCounter++,
 
     setAcceptingAnswers: (state, data) => state.acceptingAnswers = data,
@@ -65,15 +79,19 @@ const actions = {
                 return question;
             });
 
-            commit('setQuestions', questions);
-            commit('setAvilableQuestions', [...questions]);
+            const shuffled = questions
+            .map((a) => ({sort: Math.random(), value: a}))
+            .sort((a, b) => a.sort - b.sort)
+            .map((a) => a.value)
+            .slice(0, 10);
+
+            commit('setQuestions', shuffled);
+            commit('setAvilableQuestions', [...shuffled]);
         })
         .catch((err) => console.error('There was an error', err));
     },
 
     loadQuestion({commit, state}) {
-        const MAX_POINTS = 10;
-        const MAX_QUESTIONS = MAX_POINTS;
         const gameOver = 
             state.availableQuestions.length === 0 || 
             state.questionCounter >= MAX_QUESTIONS;
@@ -81,7 +99,7 @@ const actions = {
         if (gameOver) {
 
             localStorage.setItem('mostRecentScore', state.score);
-            localStorage.setItem('possibleScore', MAX_QUESTIONS * MAX_POINTS );
+            localStorage.setItem('possibleScore', MAX_SCORE );
             
             router.push('/end');
         } 
@@ -98,6 +116,19 @@ const actions = {
         // Start accepting questions again.
         commit('setAcceptingAnswers', true);
     },
+
+    clean({commit}) {
+        // Start from zero.
+        commit('cleanScore');
+        // Set current question to zero
+        commit('setQuestion', {});
+        // Clean questions.
+        commit('setQuestions', []);
+        // Clean aviable questions.
+        commit('setAvilableQuestions', []);
+        // Start accepting questions again.
+        commit('setAcceptingAnswers', true);
+    }
 }
 
 export default {
