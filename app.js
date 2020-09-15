@@ -84,7 +84,7 @@ const createQuestions = (files) => {
 }
 
 const writeQuestionsFile = (content) => {
-    fileSystem.writeFile("src/assets/questions.json", JSON.stringify(content), (err, result) => {
+    fileSystem.writeFile("public/assets/questions.json", JSON.stringify(content), (err, result) => {
         if (err) {
             console.log('There was an error:', err);
         } else {
