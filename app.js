@@ -100,7 +100,7 @@ const writeQuestionsFile = (content) => {
 
 const getFiles = () => {
 
-    const emojisDir = 'data/open_emoji_json';
+    const emojisDir = 'data/data';
     const files = [];
 
     fileSystem
