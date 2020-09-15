@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 
-import { Home, Game, End, Report } from './components/index';
+import { Game, End, Report } from './components/index';
 
 Vue.use(Router);
 
