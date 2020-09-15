@@ -27,11 +27,6 @@ const removeKeyword = (items, keyword) => {
         if (!hasKeywordTwice) {
             return item;
         }
-
-        // console.log('\n =============')
-        // console.log(item.tags);
-        // console.log(item.annotation);
-        // console.log(hasKeywordTwice);
     });
 }
 
