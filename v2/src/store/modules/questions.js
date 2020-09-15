@@ -16,6 +16,8 @@ const state = {
     availableQuestions: [],
 
     questions: [],
+
+    questionIndex: null,
     question: {},
 
     metadata: {
@@ -34,7 +36,9 @@ const getters = {
 
     availableQuestions: state => state.availableQuestions,
     questions: state => state.questions,
+    questionIndex: state => state.questionIndex,
     question: state => state.question,
+
     metadata: state => state.metadata
 };
 
@@ -49,6 +53,7 @@ const mutations  = {
 
     setAcceptingAnswers: (state, data) => state.acceptingAnswers = data,
     setQuestions: (state, questions) => state.questions = questions,
+    setQuestionIndex: (state, index) => state.questionIndex = index,
     setQuestion: (state, question) => state.question = question,
 
     setAvilableQuestions: (state, questions) => state.availableQuestions = questions,
@@ -69,6 +74,7 @@ const actions = {
 
                 const question = {
                     question: loadedQuestion.question,
+                    yourAnswer: null,
                     answer: randomNumber,
                     choices: []
                 };
@@ -110,6 +116,8 @@ const actions = {
         const questionIndex = Math.floor(Math.random() * state.availableQuestions.length);
         const question =  state.availableQuestions[questionIndex];
 
+        // Set current question index.
+        commit('setQuestionIndex', questionIndex);
         // Set current question to question selected.
         commit('setQuestion', question);
         // Increment question counter.
@@ -120,12 +128,7 @@ const actions = {
         commit('setAcceptingAnswers', true);
     },
 
-    modifyQuestion() {
-
-    },
-
     clean({commit}) {
-        console.log('CLEAN');
         commit('cleanQuestionCounter');
         // Start from zero.
         commit('cleanScore');

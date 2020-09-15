@@ -1,8 +1,8 @@
 <template>
   <div class="report_container">
 
-    <div class="game flex-column">
-      <h2>Reporte</h2>
+    <div class="game flex-center flex-column">
+      <h2>Respuestas</h2>
       <h3>Puntos: {{score}}/{{metadata.max_score}}</h3>
 
       <div 
@@ -10,6 +10,9 @@
         v-bind:key="index"
       
         class="animate__animated animate__fadeInUp card">
+
+        <br>
+        <br>
 
         <div class="imageRow">
           <img v-bind:src="'/assets' + question.question" width="75" height="75" class="animate__animated animate__fadeInDown image">
@@ -27,10 +30,8 @@
 
       <br>
       <br>
-      <router-link class="btn" @click="clean()"  to="/game">Jugar de nuevo</router-link>
+      <router-link class="btn" @click.native="clean()"  to="/game">Jugar de nuevo</router-link>
     </div>
-
-
   </div>
 </template>
 
@@ -56,6 +57,11 @@ hr {
   border-top: 0.5px solid rgba(0, 0, 0, 0.1);
 }
 
+h2 {
+  margin: 2rem;
+  font-weight: 500;
+}
+
 .btn {
   width: 100%;
 }
@@ -66,13 +72,12 @@ hr {
 
   color: #181818;
   padding: 1.5rem;
-  width: 100%;
 
 }
 
 .report_container {
-  width: 100vw;
   display: flex;
+  justify-content: center;
   max-width: 80rem;
   margin: 0 auto;
   padding: 2rem;
