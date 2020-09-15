@@ -1,0 +1,9 @@
+{
+    "name": "Vocabulary Builder",
+    "short_name": "Vocabulario",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#ffffff",
+    "theme_color": "#0072ff"
+  }
+  
