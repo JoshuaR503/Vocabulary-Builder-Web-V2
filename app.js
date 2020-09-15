@@ -36,7 +36,7 @@ const cleanItems = (items) => {
     items.forEach((item) => {
 
         const emojiName =  item.annotation;
-        const emojiDirectory = `/open_emoji/${item.hexcode}.svg`;
+        const emojiDirectory = `/images/${item.hexcode}.svg`;
 
         cleanedItems.push({
             name: emojiName.charAt(0).toUpperCase() + emojiName.slice(1),
@@ -84,7 +84,7 @@ const createQuestions = (files) => {
 }
 
 const writeQuestionsFile = (content) => {
-    fileSystem.writeFile("questions.json", JSON.stringify(content), (err, result) => {
+    fileSystem.writeFile("src/assets/questions.json", JSON.stringify(content), (err, result) => {
         if (err) {
             console.log('There was an error:', err);
         } else {
