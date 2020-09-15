@@ -10,9 +10,8 @@ const router = new Router({
   mode: 'history',
   hash: true,
   routes: [
-    { path: "/", name: 'Home', component: Home},
     {
-      path: '/game',
+      path: '/',
       name: 'Game',
       component: Game
     },

@@ -5,7 +5,6 @@
       <h1 v-if="score < metadata.required_score">¡Sigue practicando!</h1>
       <router-link class="btn" to="/report">Reporte</router-link>
       <router-link class="btn" @click.native="clean" to="/game">Jugar de nuevo</router-link>
-      <router-link class="btn" @click.native="clean" to="/">Inicio</router-link>
     </div>
   </div>
 </template>
