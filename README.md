@@ -1,4 +1,6 @@
-# vocabulary_builder
+# Vocabulary Builder
+
+[![Netlify Status](https://api.netlify.com/api/v1/badges/231bb734-e946-4cf5-94a1-617ae85d96a0/deploy-status)](https://app.netlify.com/sites/vocabulary-builder-web/deploys)
 
 ## Project setup
 ```
