@@ -19,6 +19,8 @@
                 <source  v-bind:src="adjective.englishPronunciation" type="audio/mp3">
                 Your browser does not support the audio element.
               </audio> 
+              <br>
+              <br>
           </div>
 
           <br>
@@ -59,6 +61,10 @@ h2 {
   font-weight: 500;
 }
 
+audio {
+  margin: 1.5rem;
+}
+
 .btn {
   width: 100%;
 }
@@ -85,16 +91,18 @@ h2 {
 .report_container {
   display: flex;
   justify-content: center;
-  max-width: 90rem;
-  margin: 0 auto;
   padding: 2rem;
 }
 
 .card {
   display: flex;
+  align-content: center;
+  justify-content: center;
   flex-direction: column;
   margin-bottom: 2rem;
   margin-top: 2rem;
+  height: 26vh;
+  width: 50vh;
   /* Add shadows to create the "card" effect */
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
   transition: 0.3s;
