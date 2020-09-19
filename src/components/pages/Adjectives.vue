@@ -1,31 +1,29 @@
 <template>
   <div >
-
     <div v-if="this.adjectives.length > 0" class="fadeIn content">
-      <div class="table_container">
-        <table>
-          <thead>
-            <tr>
-              <th class="table_title">Palabra</th>
-              <th class="table_title">Traducción</th>
-              <th class="table_title">Audio</th>
 
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="(adjective, index) in adjectives" :key="index">
-              <td><p>{{adjective.spanish}}</p></td>
-              <td><p>{{adjective.english}}</p></td>
-              <td> 
-                <audio controls>
+      <div class="report_container">
+        <div class="game flex-center flex-column">
+          <div 
+            v-for="(adjective, index) in adjectives" 
+            v-bind:key="index"
+
+            class="animate__animated animate__fadeInUp card">
+
+            <!-- <code>{{adjective}}</code> -->
+            <p class="choice"><b>Palabra:</b> {{adjective.spanish}}</p>
+            <p class="choice"><b>Traducción:</b> {{adjective.english}}</p>
+
+            <audio controls>
                   <source  v-bind:src="adjective.englishPronunciation" type="audio/mp3">
                   Your browser does not support the audio element.
                 </audio> 
-              </td>
+          </div>
 
-            </tr>
-          </tbody>
-        </table>
+          <br>
+          <br>
+          <router-link class="btn" @click.native="clean()"  to="/">Jugar de nuevo</router-link>
+        </div>
       </div>
     </div>
     
@@ -46,50 +44,59 @@ export default {
 </script>
 <style scoped>
 
-.table_container {
-  display: block;
-  align-items: center;
-  justify-content:safe;
-  max-width: 80rem;
-  padding: 2rem;
-  overflow-x:auto;
+
+@import '../../assets/styles/question.css';
+
+hr {
+  border: 0;
+  height: 0;
+  border-top: 0.5px solid rgba(0, 0, 0, 0.1);
 }
 
-table {
-  border-collapse: collapse;
-  border-spacing: 0;
+h2 {
+  margin: 2rem;
+  font-weight: 500;
+}
+
+.btn {
   width: 100%;
 }
 
-th, td {
-  text-align: left;
-  padding: 8px;
-}
-
-tr:nth-child(even){
-  background-color: #f2f2f2;
-}
-
-
-
-.table_title {
-  color: rgba(0,0,0,.88);
-  font-size: 2.25rem;
-  line-height: 20px;
-}
-
-
-table {
-  border-collapse: collapse;
-  width: 100%;
-}
-
-th, td {
-  padding: 15px;
-}
-
-p {
+.choice {
   font-size: 2rem;
+  letter-spacing: .05rem;
+  text-transform: capitalize;
+  color: #181818;
+  padding: 1.5rem;
+
+}
+
+.report_container {
+  display: flex;
+  justify-content: center;
+  max-width: 90rem;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 2rem;
+  margin-top: 2rem;
+  /* Add shadows to create the "card" effect */
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+}
+
+/* On mouse-over, add a deeper shadow */
+.card:hover {
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+/* Add some padding inside the card container */
+.card_container {
+  padding: 2px 16px;
 }
 
 
