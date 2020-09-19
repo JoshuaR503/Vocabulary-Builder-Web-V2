@@ -28,17 +28,10 @@ const state = {
 
 const getters = {
     loading: state => state.loading,
-
     score: state => state.score,
-    questionCounter: state => state.questionCounter,
-
     acceptingAnswers: state => state.acceptingAnswers,
-
-    availableQuestions: state => state.availableQuestions,
     questions: state => state.questions,
-    questionIndex: state => state.questionIndex,
     question: state => state.question,
-
     metadata: state => state.metadata
 };
 

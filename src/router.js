@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 
-import { Game, End, Report } from './components/index';
+import { Game, End, Report, Home, Adjectives } from './components/index';
 
 Vue.use(Router);
 
@@ -12,6 +12,16 @@ const router = new Router({
   routes: [
     {
       path: '/',
+      name: 'Home',
+      component: Home
+    },
+    {
+      path: '/adjectives',
+      name: 'Adjectives',
+      component: Adjectives
+    },
+    {
+      path: '/game',
       name: 'Game',
       component: Game
     },
