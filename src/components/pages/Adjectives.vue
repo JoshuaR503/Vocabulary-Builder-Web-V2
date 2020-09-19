@@ -13,11 +13,12 @@
             <!-- <code>{{adjective}}</code> -->
             <p class="choice"><b>Palabra:</b> {{adjective.spanish}}</p>
             <p class="choice"><b>Traducción:</b> {{adjective.english}}</p>
+            <!-- <p class="example"><b>Ejemplo:</b> {{adjective.example}}</p> -->
 
             <audio controls>
-                  <source  v-bind:src="adjective.englishPronunciation" type="audio/mp3">
-                  Your browser does not support the audio element.
-                </audio> 
+                <source  v-bind:src="adjective.englishPronunciation" type="audio/mp3">
+                Your browser does not support the audio element.
+              </audio> 
           </div>
 
           <br>
@@ -68,7 +69,17 @@ h2 {
   text-transform: capitalize;
   color: #181818;
   padding: 1.5rem;
+}
 
+.example {
+  font-size: 2rem;
+  color: #181818;
+  padding: 1.5rem;
+  line-height: 1.5;
+}
+
+.example::first-letter {
+  text-transform: capitalize;
 }
 
 .report_container {

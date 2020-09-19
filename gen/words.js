@@ -4,10 +4,10 @@ const fileSystem = require('fs');
 
 const englishWords = fileSystem.readFileSync('data/english.txt').toString().split(', ');
 const spanishArray = fileSystem.readFileSync('data/spanish.txt').toString().split(', ');
+dotenv.config();
 
 const request = async (word) => {
 
-    dotenv.config();
 
     const data = {word: word}; 
     const url = process.env.AWS_API_URL;
@@ -23,6 +23,19 @@ const request = async (word) => {
     return responseData;
 }
 
+const fetchExample = async (word) => {
+    const url = `https://www.dictionaryapi.com/api/v3/references/thesaurus/json/${word}?key=${process.env.WORDS_API}`;
+    const response = await axios.get(url);
+
+    const responseData = response.data;
+    const deep = responseData[0].def[0].sseq[0][0][1].dt[1][1][0].t;
+    const string = deep
+    .replace('{it}', '')
+    .replace('{/it}', '');
+
+    return string;
+}
+
 const createWord = async (word, index) => {
 
     const englishPronunciation = await request(word);
@@ -36,6 +49,7 @@ const createWord = async (word, index) => {
     return {
         english: word,
         englishPronunciation: url,
+        example: await fetchExample(word),
         spanish: spanishArray[index]
     }
 }
