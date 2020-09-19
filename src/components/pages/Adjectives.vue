@@ -3,7 +3,7 @@
     <div v-if="this.adjectives.length > 0" class="fadeIn content">
 
       <div class="report_container">
-        <div class="game flex-center flex-column">
+        <div class="flex-column">
           <div 
             v-for="(adjective, index) in adjectives" 
             v-bind:key="index"
@@ -12,15 +12,14 @@
 
             <!-- <code>{{adjective}}</code> -->
             <p class="choice"><b>Palabra:</b> {{adjective.spanish}}</p>
+            <br>
             <p class="choice"><b>Traducción:</b> {{adjective.english}}</p>
             <!-- <p class="example"><b>Ejemplo:</b> {{adjective.example}}</p> -->
-
+            <br>
             <audio controls>
                 <source  v-bind:src="adjective.englishPronunciation" type="audio/mp3">
                 Your browser does not support the audio element.
-              </audio> 
-              <br>
-              <br>
+            </audio> 
           </div>
 
           <br>
@@ -61,48 +60,35 @@ h2 {
   font-weight: 500;
 }
 
-audio {
-  margin: 1.5rem;
-}
-
 .btn {
   width: 100%;
 }
 
+
 .choice {
-  font-size: 2rem;
+  font-size: 2.5rem;
   letter-spacing: .05rem;
   text-transform: capitalize;
   color: #181818;
-  padding: 1.5rem;
-}
-
-.example {
-  font-size: 2rem;
-  color: #181818;
-  padding: 1.5rem;
-  line-height: 1.5;
-}
-
-.example::first-letter {
-  text-transform: capitalize;
 }
 
 .report_container {
   display: flex;
   justify-content: center;
-  padding: 2rem;
+  align-content: center;
 }
 
 .card {
   display: flex;
-  align-content: center;
-  justify-content: center;
   flex-direction: column;
-  margin-bottom: 2rem;
+  align-content: center;
+  justify-content: center!important;
+
+  padding: 1.5rem;
+
   margin-top: 2rem;
-  height: 26vh;
   width: 50vh;
+  
   /* Add shadows to create the "card" effect */
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
   transition: 0.3s;
@@ -111,11 +97,6 @@ audio {
 /* On mouse-over, add a deeper shadow */
 .card:hover {
   box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
-}
-
-/* Add some padding inside the card container */
-.card_container {
-  padding: 2px 16px;
 }
 
 
