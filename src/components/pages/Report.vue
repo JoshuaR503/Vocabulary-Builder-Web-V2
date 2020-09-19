@@ -30,7 +30,9 @@
 
       <br>
       <br>
-      <router-link class="btn" @click.native="clean()"  to="/">Jugar de nuevo</router-link>
+      <router-link class="btn" @click.native="clean()"  to="/game">Jugar de nuevo</router-link>
+      <router-link class="btn" @click.native="clean()"  to="/">Inicio</router-link>
+
     </div>
   </div>
 </template>

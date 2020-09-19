@@ -22,7 +22,7 @@
 
           <br>
           <br>
-          <router-link class="btn" @click.native="clean()"  to="/">Jugar de nuevo</router-link>
+          <router-link class="btn" @click.native="clean()"  to="/">Regresar</router-link>
         </div>
       </div>
     </div>
