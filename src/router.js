@@ -10,6 +10,8 @@ const router = new Router({
   mode: 'history',
   hash: true,
   routes: [
+    { path: '*', redirect: '/home' },  
+
     {
       path: '/',
       name: 'Home',
