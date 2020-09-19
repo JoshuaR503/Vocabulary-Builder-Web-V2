@@ -13,13 +13,14 @@
             <!-- <code>{{adjective}}</code> -->
             <p class="choice"><b>Palabra:</b> {{adjective.spanish}}</p>
             <br>
+
+            <br>
             <p class="choice"><b>Traducción:</b> {{adjective.english}}</p>
             <!-- <p class="example"><b>Ejemplo:</b> {{adjective.example}}</p> -->
             <br>
-            <audio controls>
-                <source  v-bind:src="adjective.englishPronunciation" type="audio/mp3">
-                Your browser does not support the audio element.
-            </audio> 
+
+            <br>
+            <button @click="playSound(adjective.englishPronunciation)">Escuchar Pronunciacion</button>
           </div>
 
           <br>
@@ -38,7 +39,18 @@ import { mapGetters, mapActions } from 'vuex';
 export default {
   name: 'Adjectives',
   computed: mapGetters(['adjectives', 'wordsLoading']),
-  methods: mapActions(['loadAdjectives']),
+  methods: {
+
+    ...mapActions(['loadAdjectives']),
+
+    playSound (sound) {
+      if(sound) {
+        var audio = new Audio(sound);
+        audio.play();
+      }
+    }
+  },
+
   created() {
     this.loadAdjectives();
   },
@@ -48,6 +60,25 @@ export default {
 
 
 @import '../../assets/styles/question.css';
+
+button {
+  background-color: #eeeeee; /* Green */
+  border: none;
+  color: rgb(17, 17, 17);
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+   -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Old versions of Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; 
+              outline: none;
+
+}
 
 hr {
   border: 0;
@@ -66,7 +97,7 @@ h2 {
 
 
 .choice {
-  font-size: 2.5rem;
+  font-size: 2.4rem;
   letter-spacing: .05rem;
   text-transform: capitalize;
   color: #181818;
