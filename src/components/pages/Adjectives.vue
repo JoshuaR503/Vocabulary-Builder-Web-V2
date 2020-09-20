@@ -12,7 +12,6 @@
 
             <!-- <code>{{adjective}}</code> -->
             <p class="choice"><b>Palabra:</b> {{adjective.spanish}}</p>
-            <br>
 
             <br>
             <p class="choice"><b>Traducción:</b> {{adjective.english}}</p>
@@ -25,7 +24,7 @@
 
           <br>
           <br>
-          <router-link class="btn" @click.native="clean()"  to="/">Regresar</router-link>
+          <router-link class="btn"  to="/">Regresar</router-link>
         </div>
       </div>
     </div>
@@ -97,7 +96,7 @@ h2 {
 
 
 .choice {
-  font-size: 2.4rem;
+  font-size: 2rem;
   letter-spacing: .05rem;
   text-transform: capitalize;
   color: #181818;
