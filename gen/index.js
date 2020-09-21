@@ -4,7 +4,6 @@ const cheerio = require('cheerio');
 const axios = require('axios');
 const dotenv = require('dotenv');
 const fileSystem = require('fs');
-const { clear } = require('console');
 
 const englishWords = fileSystem.readFileSync('data/english.txt').toString().split(', ');
 const spanishArray = fileSystem.readFileSync('data/spanish.txt').toString().split(', ');
@@ -70,8 +69,6 @@ const getExamples = (links) => {
         return accumulator.then((results) => {
           return findExample(url)
             .then((data) => {
-
-                console.log(data);
                 results.push(data);
                 return results;
             });
@@ -96,15 +93,13 @@ const createWord = async (word, index, examples) => {
     // if (englishPronunciation === undefined) {
 
     //     console.log('Is undefined');
-    //     return createWord(word, index);
+    //     return createWord(word, index, examples);
     // }
-
-    // const url = ;
     
     return {
         english: word,
         englishPronunciation: `https://dqu1bnbv3o0a6.cloudfront.net/${word}.mp3`,
-        example: examples[index],
+        example: examples[index] ? examples[index] : [],
         spanish: spanishArray[index]
     }
 }
@@ -129,7 +124,7 @@ const createArray = async () => {
 }
 
 const writeQuestionsFile = (content) => {
-    fileSystem.writeFile("adjective.json", JSON.stringify(content), (err) => {
+    fileSystem.writeFile("words.json", JSON.stringify(content), (err) => {
         if (err) {
             console.log('There was an error:', err);
         } else {
@@ -138,13 +133,36 @@ const writeQuestionsFile = (content) => {
     });
 }
 
+const getFiles = () => {
+    const dir = 'files';
+    const files = [];
+
+    fileSystem
+    .readdirSync(dir)
+    .forEach(file => files
+    .push(`${dir}/${file}`));
+
+    return files;
+}
+
+const openFile = (name) => {
+    return JSON.parse(fileSystem.readFileSync(name, 'utf8'));
+}
+
+const mergeFiles = () => {
+
+    const files = getFiles();
+    const bigArray = openFile(files[0]).concat(openFile(files[1]));
+
+    return bigArray;
+}
+
 
 (async () => {
 
-   
-    const words = await createArray();
+    // const words = await createArray();
 
-    writeQuestionsFile(words);
+    writeQuestionsFile(    mergeFiles()    );
 
     // const adjectives = JSON.parse(fileSystem.readFileSync('adjective.json', 'utf8'));
 

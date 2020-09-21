@@ -20,7 +20,7 @@ const actions = {
     async loadAdjectives({commit}) {
         commit('setWordsLoading', true);
         await axios
-        .get('/assets/adjective.json')
+        .get('/assets/words.json')
         .then((response) => {
 
             const shuffled = response.data
