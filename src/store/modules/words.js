@@ -22,7 +22,13 @@ const actions = {
         await axios
         .get('/assets/adjective.json')
         .then((response) => {
-            commit('setAdjectives', response.data);
+
+            const shuffled = response.data
+            .map((a) => ({sort: Math.random(), value: a}))
+            .sort((a, b) => a.sort - b.sort)
+            .map((a) => a.value);
+            
+            commit('setAdjectives', shuffled);
             commit('setWordsLoading', false);
         })
         .catch((err) => console.error('There was an error', err));

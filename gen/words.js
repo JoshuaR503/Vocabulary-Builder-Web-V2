@@ -1,13 +1,19 @@
+const Nightmare = require('nightmare');
+const cheerio = require('cheerio');
+
 const axios = require('axios');
 const dotenv = require('dotenv');
 const fileSystem = require('fs');
+const { clear } = require('console');
 
 const englishWords = fileSystem.readFileSync('data/english.txt').toString().split(', ');
 const spanishArray = fileSystem.readFileSync('data/spanish.txt').toString().split(', ');
+
+const nightmare = Nightmare();
+
 dotenv.config();
 
 const request = async (word) => {
-
 
     const data = {word: word}; 
     const url = process.env.AWS_API_URL;
@@ -23,40 +29,102 @@ const request = async (word) => {
     return responseData;
 }
 
-const fetchExample = async (word) => {
-    const url = `https://www.dictionaryapi.com/api/v3/references/thesaurus/json/${word}?key=${process.env.WORDS_API}`;
-    const response = await axios.get(url);
+const processDOM = (body) => {
+    const englishExamples = [];
+    const spanishExamples = [];
 
-    const responseData = response.data;
-    const deep = responseData[0].def[0].sseq[0][0][1].dt[1][1][0].t;
-    const string = deep
-    .replace('{it}', '')
-    .replace('{/it}', '');
+    const $ = cheerio.load(body);
 
-    return string;
+    $('._1f2Xuesa').each((_, element) => englishExamples.push($(element).text().trim()));
+    $('._3WrcYAGx').each((_, element) => spanishExamples.push($(element).text().trim()));
+
+    englishExamples.slice(0, 2);
+    spanishExamples.slice(0, 2);
+
+    const examples = [
+        {
+            english: englishExamples[0],
+            spanish: spanishExamples[0]
+        },
+        {
+            english: englishExamples[1],
+            spanish: spanishExamples[1]
+        }
+    ];
+
+    console.log(examples);
+
+    return examples;
 }
 
-const createWord = async (word, index) => {
+const findExample = async (url) => {
+    return await nightmare
+    .goto(url)
+    .wait(2000)
+    .evaluate(() => document.querySelector('body').innerHTML)
+	.then((body) => processDOM(body));
+}
 
-    const englishPronunciation = await request(word);
+const getExamples = (links) => {
+    return links.reduce((accumulator, url) => {
+        return accumulator.then((results) => {
+          return findExample(url)
+            .then((data) => {
 
-    if (englishPronunciation === undefined) {
-        return createWord(word, index);
-    }
+                console.log(data);
+                results.push(data);
+                return results;
+            });
+        })
+        .catch((err) => {
+            throw err;
+        });
+    }, 
+    
+    Promise
+    .resolve([]))
+    .then((data) => data)
+    .catch(() => console.log('There was an error'));
+}
 
-    const url = `https://dqu1bnbv3o0a6.cloudfront.net/${word}.mp3`;
+const createWord = async (word, index, examples) => {
+
+    console.log(word);
+
+    // const englishPronunciation = await request(word);
+
+    // if (englishPronunciation === undefined) {
+
+    //     console.log('Is undefined');
+    //     return createWord(word, index);
+    // }
+
+    // const url = ;
     
     return {
         english: word,
-        englishPronunciation: url,
-        example: await fetchExample(word),
+        englishPronunciation: `https://dqu1bnbv3o0a6.cloudfront.net/${word}.mp3`,
+        example: examples[index],
         spanish: spanishArray[index]
     }
 }
 
+const createLinks =  () => {
+    const links = [];
+
+    englishWords.forEach((word) => links.push(`https://www.spanishdict.com/translate/${word}`));
+
+    return links;
+}
+
 const createArray = async () => {
+    
+    const links = createLinks();
+    const examples = await getExamples(links);
+
+
     return await Promise.all(englishWords.map(async(singleWord, index) => {
-        return await createWord(singleWord, index);
+        return await createWord(singleWord, index, examples);
     }));
 }
 
@@ -73,11 +141,12 @@ const writeQuestionsFile = (content) => {
 
 (async () => {
 
-    // const words = await createArray();
+   
+    const words = await createArray();
 
-    // writeQuestionsFile(words);
+    writeQuestionsFile(words);
 
-    const adjectives = JSON.parse(fileSystem.readFileSync('adjective.json', 'utf8'));
+    // const adjectives = JSON.parse(fileSystem.readFileSync('adjective.json', 'utf8'));
 
-    console.log(adjectives);
+    // console.log(adjectives);
 })();

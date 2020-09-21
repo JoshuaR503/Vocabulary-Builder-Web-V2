@@ -10,14 +10,25 @@
 
             class="animate__animated animate__fadeInUp card">
 
-            <!-- <code>{{adjective}}</code> -->
             <p class="choice"><b>Palabra:</b> {{adjective.spanish}}</p>
 
-            <br>
             <p class="choice"><b>Traducción:</b> {{adjective.english}}</p>
-            <!-- <p class="example"><b>Ejemplo:</b> {{adjective.example}}</p> -->
+            <p class="choice"><b>Ejemplos:</b></p>
             <br>
 
+            <table>
+              <tbody>
+                <tr 
+                  v-for="(ex, index) in adjective.example" 
+                  v-bind:key="index">
+
+                  <td>{{ex.english}}</td>
+                  <td>{{ex.spanish}}</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <br>
             <br>
             <button @click="playSound(adjective.englishPronunciation)">Escuchar Pronunciacion</button>
           </div>
@@ -60,6 +71,29 @@ export default {
 
 @import '../../assets/styles/question.css';
 
+
+table {
+  background-color: #f5f5f5;
+  display: flex;
+  align-items: flex-start;
+}
+
+td,
+th {
+  border-top: 2px solid #ddd;
+  padding: 6px;
+}
+
+td {
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+tr:nth-child(even){
+  background-color: #f2f2f2;
+}
+
+
 button {
   background-color: #eeeeee; /* Green */
   border: none;
@@ -68,15 +102,12 @@ button {
   text-align: center;
   text-decoration: none;
   display: inline-block;
-  font-size: 16px;
+  font-size: 14px;
    -webkit-touch-callout: none; /* iOS Safari */
     -webkit-user-select: none; /* Safari */
-     -khtml-user-select: none; /* Konqueror HTML */
-       -moz-user-select: none; /* Old versions of Firefox */
         -ms-user-select: none; /* Internet Explorer/Edge */
             user-select: none; 
               outline: none;
-
 }
 
 hr {
@@ -97,8 +128,19 @@ h2 {
 
 .choice {
   font-size: 2rem;
+  margin-top: 1rem;
   letter-spacing: .05rem;
   text-transform: capitalize;
+  color: #181818;
+  line-height: 1.5;
+}
+
+.example {
+  font-size: 1.8rem;
+  margin-top: 1.5rem;
+  line-height: 1.5;
+  font-weight: 200;
+  letter-spacing: .05rem;
   color: #181818;
 }
 
@@ -117,7 +159,7 @@ h2 {
   padding: 1.5rem;
 
   margin-top: 2rem;
-  width: 50vh;
+  width: 52vh;
   
   /* Add shadows to create the "card" effect */
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
