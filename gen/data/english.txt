@@ -1,1 +1,1 @@
-happy, sad, hard, soft, heavy, light, high, low, huge, tiny, kind, unpleasant, light, dark, long, short, new, old, opened, closed, polite, rude, precise, imprecise, Quiet, Restless, rich, poor, right, Left, safe, dangerous, simple, complex
+single, married, square, round, strong, weak, tall, short, tidy, untidy, true, false, useful, useless, wet, dry, wide, narrow
