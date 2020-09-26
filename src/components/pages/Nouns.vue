@@ -1,6 +1,12 @@
 <template>
   <div >
-    <div v-if="this.adjectives.length > 0" class="fadeIn content">
+
+    <div v-if="this.loading" class="spinner">
+      <div class="cube1"></div>
+      <div class="cube2"></div>
+    </div>
+
+    <div v-if="!this.loading" class="fadeIn content">
 
       <div class="report_container">
         <div class="flex-column">
@@ -67,8 +73,7 @@ export default {
 }
 </script>
 <style scoped>
-
-
+@import '../../assets/styles/spinner.css';
 @import '../../assets/styles/question.css';
 
 
