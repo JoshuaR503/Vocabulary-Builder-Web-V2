@@ -6,14 +6,16 @@ const englishWords = openRawFile('words/english.txt');
 const spanishArray = openRawFile('words/spanish.txt'); 
 
 const mergeFiles = () => {
-    const files = filesAvailable('data');
-    const bigArray = openJSONFile(files[0]).concat(openJSONFile(files[1]));
+    const files = filesAvailable('nouns');
 
-    return bigArray;
+    return openJSONFile(files[0])
+    .concat(openJSONFile(files[1]))
+    .concat(openJSONFile(files[2]));
 }
 
 const createAudioFiles = async () => {
     return await Promise.all(englishWords.map(async(word) => {
+
         return await createAudioFile(word, false);
     }));
 }
@@ -21,7 +23,7 @@ const createAudioFiles = async () => {
 const createWord = async (word, index, examples) => {
     return {
         english: word,
-        englishPronunciation: `https://dqu1bnbv3o0a6.cloudfront.net/${word}.mp3`,
+        englishPronunciation: `https://dqu1bnbv3o0a6.cloudfront.net/${word.trim()}.mp3`,
         example: examples[index] ? examples[index] : [],
         spanish: spanishArray[index]
     }
@@ -40,7 +42,19 @@ const createArray = async () => {
     }));
 }
 
+const init = async () => {
+    const words = await createAudioFiles();
+    const didWord = words.length == englishWords.length;
+
+    if (didWord) {
+        createFile('nouns2.json', await createArray());
+    } else {
+        console.log('Assistance required.');
+    }    
+}
+
 (async () => {
-    const content = await createArray();    
-    createFile('nouns.json', content);
+    createFile('nouns.json', await mergeFiles());
+
+    
 })();
