@@ -1,100 +1,18 @@
-const Nightmare = require('nightmare');
-const cheerio = require('cheerio');
+const { loadExamples } = require('./utils/dom');
+const { createAudioFile } = require('./utils/http');
+const { filesAvailable, openJSONFile, openRawFile, createFile } = require('../utils/fs');
 
-const axios = require('axios');
-const dotenv = require('dotenv');
-const fileSystem = require('fs');
-
-const englishWords = fileSystem.readFileSync('data/english.txt').toString().split(', ');
-const spanishArray = fileSystem.readFileSync('data/spanish.txt').toString().split(', ');
-
-const nightmare = Nightmare();
-
-dotenv.config();
-
-const request = async (word) => {
-
-    const data = {word: word}; 
-    const url = process.env.AWS_API_URL;
-
-    const kAudioUrlHeaders = {
-        'Content-Type': 'application/json',
-        'x-api-key': process.env.AWS_KEY,
-    }
-
-    const response = await axios.post(url, data, {headers: kAudioUrlHeaders});
-    const responseData = response.data.response;
-
-    return responseData;
-}
-
-const processDOM = (body) => {
-    const englishExamples = [];
-    const spanishExamples = [];
-
-    const $ = cheerio.load(body);
-
-    $('._1f2Xuesa').each((_, element) => englishExamples.push($(element).text().trim()));
-    $('._3WrcYAGx').each((_, element) => spanishExamples.push($(element).text().trim()));
-
-    englishExamples.slice(0, 2);
-    spanishExamples.slice(0, 2);
-
-    const examples = [
-        {
-            english: englishExamples[0],
-            spanish: spanishExamples[0]
-        },
-        {
-            english: englishExamples[1],
-            spanish: spanishExamples[1]
-        }
-    ];
-
-    console.log(examples);
-
-    return examples;
-}
-
-const findExample = async (url) => {
-    return await nightmare
-    .goto(url)
-    .wait(2000)
-    .evaluate(() => document.querySelector('body').innerHTML)
-	.then((body) => processDOM(body));
-}
-
-const getExamples = (links) => {
-    return links.reduce((accumulator, url) => {
-        return accumulator.then((results) => {
-          return findExample(url)
-            .then((data) => {
-                results.push(data);
-                return results;
-            });
-        })
-        .catch((err) => {
-            throw err;
-        });
-    }, 
-    
-    Promise
-    .resolve([]))
-    .then((data) => data)
-    .catch(() => console.log('There was an error'));
-}
+const englishWords = openRawFile('words/english.txt'); 
+const spanishArray = openRawFile('words/spanish.txt'); 
 
 const createWord = async (word, index, examples) => {
 
-    console.log(word);
+    const englishPronunciation = await createAudioFile(word);
 
-    // const englishPronunciation = await request(word);
-
-    // if (englishPronunciation === undefined) {
-
-    //     console.log('Is undefined');
-    //     return createWord(word, index, examples);
-    // }
+    if (englishPronunciation === undefined) {
+        console.log('Is undefined');
+        return createWord(word, index, examples);
+    }
     
     return {
         english: word,
@@ -105,66 +23,27 @@ const createWord = async (word, index, examples) => {
 }
 
 const createLinks =  () => {
-    const links = [];
+    return englishWords.map((word) => `https://www.spanishdict.com/translate/${word}`);
+}
 
-    englishWords.forEach((word) => links.push(`https://www.spanishdict.com/translate/${word}`));
+const mergeFiles = () => {
+    const files = filesAvailable('data');
+    const bigArray = openJSONFile(files[0]).concat(openJSONFile(files[1]));
 
-    return links;
+    return bigArray;
 }
 
 const createArray = async () => {
-    
     const links = createLinks();
-    const examples = await getExamples(links);
-
+    const examples = await loadExamples(links);
 
     return await Promise.all(englishWords.map(async(singleWord, index) => {
         return await createWord(singleWord, index, examples);
     }));
 }
 
-const writeQuestionsFile = (content) => {
-    fileSystem.writeFile("words.json", JSON.stringify(content), (err) => {
-        if (err) {
-            console.log('There was an error:', err);
-        } else {
-            console.log('New words created');
-        }
-    });
-}
-
-const getFiles = () => {
-    const dir = 'files';
-    const files = [];
-
-    fileSystem
-    .readdirSync(dir)
-    .forEach(file => files
-    .push(`${dir}/${file}`));
-
-    return files;
-}
-
-const openFile = (name) => {
-    return JSON.parse(fileSystem.readFileSync(name, 'utf8'));
-}
-
-const mergeFiles = () => {
-
-    const files = getFiles();
-    const bigArray = openFile(files[0]).concat(openFile(files[1]));
-
-    return bigArray;
-}
-
-
 (async () => {
-
     // const words = await createArray();
-
-    writeQuestionsFile(    mergeFiles()    );
-
-    // const adjectives = JSON.parse(fileSystem.readFileSync('adjective.json', 'utf8'));
-
-    // console.log(adjectives);
+    // const content =  mergeFiles();
+    // createFile('adjectives.json', content);
 })();
