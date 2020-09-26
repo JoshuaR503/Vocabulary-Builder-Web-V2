@@ -6,9 +6,8 @@
       <div class="cube2"></div>
     </div>
 
-    <div v-if="!this.loading" class="fadeIn content">
 
-      <div class="report_container">
+      <div v-if="!this.loading"  class="report_container fadeIn content">
         <div class="flex-column">
           <div 
             v-for="(adjective, index) in adjectives" 
@@ -44,7 +43,8 @@
           <router-link class="btn"  to="/">Regresar</router-link>
         </div>
       </div>
-    </div>
+
+
     
   </div>
 </template>
