@@ -1,1 +1,1 @@
-soltero, casado, cuadrado, redondo, fuerte, débil, alto, chaparro, ordenado, desordenado, cierto, falso, útil, inútil, húmedo, seco, ancho, estrecho
+edad, aire, animal, respuesta, manzana, arte, bebé, pelota, banco, cama, bicicleta, pájaro, sangre, cuerpo, hueso, libro, caja, muchacho, edificio, autobús, negocios, llamada, carro, gato, centavo, siglo, silla, iglesia, círculo, ciudad, clase, ropa

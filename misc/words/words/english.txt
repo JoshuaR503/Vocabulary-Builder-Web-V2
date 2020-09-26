@@ -1,1 +1,1 @@
-single, married, square, round, strong, weak, tall, short, tidy, untidy, true, false, useful, useless, wet, dry, wide, narrow
+age, air, animal, answer, apple, art, baby, ball, bank, bed, bicycle, bird, blood, body, bone, book, box, boy, building, bus, business, call, car, cat, cent, century, chair, church, circle, city, class, clothes 

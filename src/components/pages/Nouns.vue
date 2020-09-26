@@ -62,7 +62,7 @@ export default {
   },
 
   created() {
-    this.loadAdjectives('adj');
+    this.loadAdjectives('nouns');
   },
 }
 </script>

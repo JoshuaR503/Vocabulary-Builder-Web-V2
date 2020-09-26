@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 
-import { Game, End, Report, Home, Adjectives } from './components/index';
+import { Game, End, Report, Home, Adjectives, Nouns } from './components/index';
 
 Vue.use(Router);
 
@@ -21,6 +21,11 @@ const router = new Router({
       path: '/adjectives',
       name: 'Adjectives',
       component: Adjectives
+    },
+    {
+      path: '/nouns',
+      name: 'Nouns',
+      component: Nouns
     },
     {
       path: '/game',

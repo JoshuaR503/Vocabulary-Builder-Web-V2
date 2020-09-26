@@ -1,8 +1,5 @@
 <template>
-  <transition name="fadeIn" 
-    enter-active-class="fadeIn">
-    <router-view/>
-  </transition>
+  <router-view/>
 </template>
 
 <script>

@@ -5,15 +5,20 @@ const { filesAvailable, openJSONFile, openRawFile, createFile } = require('../ut
 const englishWords = openRawFile('words/english.txt'); 
 const spanishArray = openRawFile('words/spanish.txt'); 
 
+const mergeFiles = () => {
+    const files = filesAvailable('data');
+    const bigArray = openJSONFile(files[0]).concat(openJSONFile(files[1]));
+
+    return bigArray;
+}
+
+const createAudioFiles = async () => {
+    return await Promise.all(englishWords.map(async(word) => {
+        return await createAudioFile(word, false);
+    }));
+}
+
 const createWord = async (word, index, examples) => {
-
-    const englishPronunciation = await createAudioFile(word);
-
-    if (englishPronunciation === undefined) {
-        console.log('Is undefined');
-        return createWord(word, index, examples);
-    }
-    
     return {
         english: word,
         englishPronunciation: `https://dqu1bnbv3o0a6.cloudfront.net/${word}.mp3`,
@@ -26,13 +31,6 @@ const createLinks =  () => {
     return englishWords.map((word) => `https://www.spanishdict.com/translate/${word}`);
 }
 
-const mergeFiles = () => {
-    const files = filesAvailable('data');
-    const bigArray = openJSONFile(files[0]).concat(openJSONFile(files[1]));
-
-    return bigArray;
-}
-
 const createArray = async () => {
     const links = createLinks();
     const examples = await loadExamples(links);
@@ -43,7 +41,6 @@ const createArray = async () => {
 }
 
 (async () => {
-    // const words = await createArray();
-    // const content =  mergeFiles();
-    // createFile('adjectives.json', content);
+    const content = await createArray();    
+    createFile('nouns.json', content);
 })();

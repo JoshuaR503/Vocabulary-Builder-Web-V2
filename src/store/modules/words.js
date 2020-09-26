@@ -17,10 +17,12 @@ const mutations  = {
 }
 
 const actions = {
-    async loadAdjectives({commit}) {
+    async loadAdjectives({commit}, fileName) {
+
         commit('setWordsLoading', true);
+        
         await axios
-        .get('/assets/words.json')
+        .get(`/assets/${fileName}.json`)
         .then((response) => {
 
             const shuffled = response.data
