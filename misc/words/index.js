@@ -2,8 +2,8 @@ const { loadExamples } = require('./utils/dom');
 const { createAudioFile } = require('./utils/http');
 const { filesAvailable, openJSONFile, openRawFile, createFile } = require('../utils/fs');
 
-const englishWords = openRawFile('words/english.txt'); 
-const spanishArray = openRawFile('words/spanish.txt'); 
+// const englishWords = openRawFile('words/english.txt'); 
+// const spanishArray = openRawFile('words/spanish.txt'); 
 
 const mergeFiles = () => {
     const files = filesAvailable('nouns');
@@ -53,8 +53,21 @@ const init = async () => {
     }    
 }
 
+
+const loadRaw = () => {
+    const content = openRawFile('words/words.txt');
+
+
+    content.forEach((x) => console.log(x))
+    console.log(content);
+}
+
+
+
 (async () => {
-    createFile('nouns.json', await mergeFiles());
+
+    loadRaw();
+    // createFile('nouns.json', await mergeFiles());
 
     
 })();
