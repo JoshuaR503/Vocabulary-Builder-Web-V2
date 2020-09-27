@@ -3,7 +3,6 @@ import axios from 'axios';
 const state = {
     wordsLoading: true,
     adjectives: [],
-
 };
 
 const getters = {
@@ -30,7 +29,7 @@ const actions = {
             .sort((a, b) => a.sort - b.sort)
             .map((a) => a.value);
             
-            commit('setAdjectives', shuffled);
+            commit('setAdjectives', response.data);
             commit('setWordsLoading', false);
         })
         .catch((err) => console.error('There was an error', err));

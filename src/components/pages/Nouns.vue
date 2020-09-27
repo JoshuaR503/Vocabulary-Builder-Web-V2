@@ -1,51 +1,39 @@
 <template>
-  <div >
+  <div>
+    <div class="report_container fadeIn content">
 
-    <div v-if="this.loading" class="spinner">
-      <div class="cube1"></div>
-      <div class="cube2"></div>
-    </div>
-
-
-      <div v-if="!this.loading"  class="report_container fadeIn content">
-        <div class="flex-column">
-          <div 
-            v-for="(adjective, index) in adjectives" 
-            v-bind:key="index"
-
-            class="animate__animated animate__fadeInUp card">
-
-            <p class="choice"><b>Palabra:</b> {{adjective.spanish}}</p>
-
-            <p class="choice"><b>Traducción:</b> {{adjective.english}}</p>
-            <p class="choice"><b>Ejemplos:</b></p>
-            <br>
-
-            <table>
-              <tbody>
-                <tr 
-                  v-for="(ex, index) in adjective.example" 
-                  v-bind:key="index">
-
-                  <td>{{ex.english}}</td>
-                  <td>{{ex.spanish}}</td>
-                </tr>
-              </tbody>
-            </table>
-
-            <br>
-            <br>
-            <button @click="playSound(adjective.englishPronunciation)">Escuchar Pronunciacion</button>
-          </div>
-
-          <br>
-          <br>
-          <router-link class="btn"  to="/">Regresar</router-link>
-        </div>
+      <div v-if="wordsLoading">
+        <h2 style="margin-top: 40vh">Cargando</h2>
       </div>
 
-
-    
+      <div v-if="!wordsLoading" class="flex-column">
+        <div 
+            v-for="(adjective, index) in adjectives" 
+            v-bind:key="index"
+            class="animate__animated animate__fadeInUp card">
+          <p class="choice"><b>Palabra:</b> {{adjective.spanish}}</p>
+          <p class="choice"><b>Traducción:</b> {{adjective.english}}</p>
+          <p class="choice"><b>Ejemplos:</b></p>
+          <br>
+          <table>
+            <tbody>
+              <tr 
+                v-for="(ex, index) in adjective.example" 
+                v-bind:key="index">
+                <td>{{ex.english}}</td>
+                <td>{{ex.spanish}}</td>
+              </tr>
+            </tbody>
+          </table>
+          <br>
+          <br>
+          <button @click="playSound(adjective.englishPronunciation)">Escuchar Pronunciacion</button>
+        </div>
+        <br>
+        <br>
+        <router-link class="btn"  to="/">Regresar</router-link>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -73,7 +61,6 @@ export default {
 }
 </script>
 <style scoped>
-@import '../../assets/styles/spinner.css';
 @import '../../assets/styles/question.css';
 
 

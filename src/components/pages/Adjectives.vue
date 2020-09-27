@@ -1,13 +1,12 @@
 <template>
   <div >
 
-    <div v-if="this.loading" class="spinner">
-      <div class="cube1"></div>
-      <div class="cube2"></div>
-    </div>
+    <div v-if="wordsLoading">
+        <h2 style="margin-top: 40vh">Cargando</h2>
+      </div>
 
 
-      <div v-if="!this.loading" class="report_container fadeIn content">
+      <div v-if="!wordsLoading" class="report_container fadeIn content">
         <div class="flex-column">
           <div 
             v-for="(adjective, index) in adjectives" 
@@ -71,7 +70,6 @@ export default {
 }
 </script>
 <style scoped>
-@import '../../assets/styles/spinner.css';
 @import '../../assets/styles/question.css';
 
 
