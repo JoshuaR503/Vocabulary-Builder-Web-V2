@@ -16,12 +16,12 @@ const createAudioFile = async (word, alreadyTried) => {
     const response = await axios.post(url, data, {headers: kAudioUrlHeaders});
     const responseData = response.data.response;
 
-    if (alreadyTried && responseData === undefined) {
-        console.log('There was an error, trying again.');
-        createAudioFile(word, true);
-    }
+    // if (alreadyTried && responseData === undefined) {
+    //     console.log('There was an error, trying again.');
+    //     createAudioFile(word, true);
+    // }
 
-    console.log(responseData);
+    console.log({word, responseData});
 
     return responseData;
 }

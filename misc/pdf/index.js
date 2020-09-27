@@ -22,18 +22,17 @@ const mergeCells = (cells) => (cells || [])
     })
     .join("") // merge cells
     .substr(0, cellPadding)
- 
+    .padEnd(cellPadding, " ");
+
 const renderMatrix = (matrix) => (matrix || [])
-    .map((row, y) => padColumns(row, 1).map(mergeCells).join(' '))
-    .join("-");
+    .map((row, y) => padColumns(row, 2).map(mergeCells).join('\n-'))
+    .join("\n-");
 
 
 rimraf.sync('*.json');
 
-var table = new pdfreader.TableParser();
 
-const createContent = (table) => {
-    const content = renderMatrix(table.getMatrix());
+const createContent = (content) => {
     const splitedContent = content
     .split('-')
     .map((item) => {
@@ -50,22 +49,26 @@ const createContent = (table) => {
         
     });
 
-    splitedContent.splice(0, 1);
+    splitedContent.splice(0, 2);
+    splitedContent.pop();
     splitedContent.pop();
 
     return splitedContent;
 }
 
+let table = new pdfreader.TableParser();
+
 new pdfreader.PdfReader().parseFileItems('nouns.pdf', function (err, item) {
 
     if (!item || item.page) {
 
-        const fileName = new Date().getTime()+ Math.random();
-        const content = createContent(table);
+        const content = renderMatrix(table.getMatrix())
+        const words = createContent(content);
 
-        createFile(`words-${fileName}.json`, content);        
+        createFile(`words-${ new Date().getTime()+ Math.random()}.json`, words);        
         
         table = new pdfreader.TableParser();
+
     } else if (item.text) {
         table.processItem(item, columnQuantitizer(item));
     }

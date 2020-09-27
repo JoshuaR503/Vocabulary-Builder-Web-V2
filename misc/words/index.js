@@ -2,7 +2,7 @@ const { loadExamples } = require('./utils/dom');
 const { createAudioFile } = require('./utils/http');
 const { filesAvailable, openJSONFile, openRawFile, createFile } = require('../utils/fs');
 
-// const englishWords = openRawFile('words/english.txt'); 
+const englishWords = openJSONFile('words/words.json');
 // const spanishArray = openRawFile('words/spanish.txt'); 
 
 const mergeFiles = () => {
@@ -10,27 +10,29 @@ const mergeFiles = () => {
 
     return openJSONFile(files[0])
     .concat(openJSONFile(files[1]))
-    .concat(openJSONFile(files[2]));
+    .concat(openJSONFile(files[2]))
+    .concat(openJSONFile(files[3]))
+    .concat(openJSONFile(files[4]));
+
 }
 
 const createAudioFiles = async () => {
     return await Promise.all(englishWords.map(async(word) => {
-
-        return await createAudioFile(word, false);
+        return await createAudioFile(word.english, false);
     }));
 }
 
 const createWord = async (word, index, examples) => {
     return {
-        english: word,
-        englishPronunciation: `https://dqu1bnbv3o0a6.cloudfront.net/${word.trim()}.mp3`,
+        english: word.english,
+        englishPronunciation: `https://dqu1bnbv3o0a6.cloudfront.net/${word.english.trim()}.mp3`,
         example: examples[index] ? examples[index] : [],
-        spanish: spanishArray[index]
+        spanish: word.spanish
     }
 }
 
-const createLinks =  () => {
-    return englishWords.map((word) => `https://www.spanishdict.com/translate/${word}`);
+const createLinks = () => {
+    return englishWords.map((word) => `https://www.spanishdict.com/translate/${word.english}`);
 }
 
 const createArray = async () => {
@@ -42,32 +44,14 @@ const createArray = async () => {
     }));
 }
 
-const init = async () => {
-    const words = await createAudioFiles();
-    const didWord = words.length == englishWords.length;
-
-    if (didWord) {
-        createFile('nouns2.json', await createArray());
-    } else {
-        console.log('Assistance required.');
-    }    
-}
-
-
-const loadRaw = () => {
-    const content = openRawFile('words/words.txt');
-
-
-    content.forEach((x) => console.log(x))
-    console.log(content);
-}
-
-
-
 (async () => {
+    // Audio file Creation.
+    // await createAudioFiles();
 
-    loadRaw();
-    // createFile('nouns.json', await mergeFiles());
+    // Word Creation
+    // createFile('nouns4.json', await createArray());
+
+    createFile('nouns.json', await mergeFiles());
 
     
 })();
